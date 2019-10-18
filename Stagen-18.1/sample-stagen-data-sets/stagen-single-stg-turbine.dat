@@ -1,0 +1,164 @@
+ 287.5     1.4                   RGAS,  GAMMA
+ 46      46     jm,km
+1.25    20.0     fprat,fpmax
+1.25    20.0     fkrat,fkmax
+ 0               ifdefault
+ 2    2          No.  of rows and sections.
+1.00             Scaling factor
+blank
+NOZZLE   ROW
+blank
+25   100    15      Grid points upstream/ on /and downstream of blade.
+0.0    0.25          Fraction of axial chord/ relative grid spacing.
+0.025  0.3
+0.05   0.4
+0.1    0.5
+0.2    0.75
+0.35   1.0
+0.5    1.0
+0.6    0.8
+0.7    0.7
+0.8    0.6
+0.9    0.5
+1.001  0.4
+ 71             number of blades  
+ 000.   95000.    95000.      65000.     65000.0             rpm, puprow, plerow, etc
+  00    00     20   150    20   150     0.00      0.0        ktips, ktipe, etc, rpmhub
+blank
+   NOZZLE hub  section
+blank
+   1              Intype
+  11   300    2   No.of points input, No. used to define the blade detail, No of smoothings
+  0.0    -40.0         
+  0.10   -30.0     
+  0.20   -15.0     
+  0.30    0.0       
+  0.40    15.0      
+  0.50   30.0     
+  0.6    45.0      
+  0.7    55.0     
+  0.80   60.0     
+  0.90   65.0     
+  1.00   66.0     
+  0.05    0.02    0.30   0.40   0.05   0.01   2.0   Tkle,tkte,tkmax,xtmax, etc
+  0.0     0.0      1.0                              Fchord, Fperp, Fscale.
+  -1.0     0.5      0.5                             Rotation, xrot, yrot.
+   0.7    0.2     -35.0    65.0                     Xcup, Xcdwn, betup, betdwn.
+blank
+4          Number of points used to define the stream surface
+   .0      .05      .07     .12
+   .5       .5       .5     .5
+   .000     .05      .5     .5
+ 0.0     0.000     0     0     0       Fcentroid, Ftang, Flean, Fsweep, Faxial               
+ 1.0     0                             Fscale. Fconst
+blank
+   NOZZLE TIP  section
+blank
+   1              Intype
+  11   300    2   No.of points input, No. used to define the blade detail, No of smoothings
+  0.0    -40.0         
+  0.10   -30.0     
+  0.20   -15.0     
+  0.30    0.0       
+  0.40    15.0      
+  0.50   30.0     
+  0.6    45.0      
+  0.7    55.0     
+  0.80   60.0     
+  0.90   65.0     
+  1.00   66.0     
+  0.05    0.02    0.30   0.40   0.05   0.01   2.0   Tkle,tkte,tkmax,xtmax, etc
+  0.0     0.0      1.0                              Fchord, Fperp, Fscale.
+  -1.0     0.5      0.5                             Rotation, xrot, yrot.
+   0.7    0.2     -35.0    65.0                     Xcup, Xcdwn, betup, betdwn.
+blank
+6          Number of points used to define the stream surface
+  -0.05    .0       .05      .07     .12    .17
+   0.574  .583      .603     .611    .631   0.640
+   0.00      0.05    .583     .603 
+ 0.0     0.000     0     0     0       Fcentroid, Ftang, Flean, Fsweep, Faxial               
+ 1.0     0                             Fscale. Fconst
+blank
+ROTOR   ROW
+blank
+15  100  25          Grid points upstream/ on /and downstream of blade.
+0.0    0.25          Fraction of axial chord/ relative grid spacing.
+0.025  0.3
+0.05   0.4
+0.1    0.5
+0.2    0.75
+0.35   1.0
+0.5    1.0
+0.6    0.8
+0.7    0.7
+0.8    0.6
+0.9    0.5
+1.001  0.4
+ 83             number of blades  
+ 3000.   65000.    65000.      45000.     45000.0        rpm, puprow, plerow, etc
+  00    00     20   130    00   00     0.0      0.0     ktips, ktipe, etc, rpmhub
+blank
+   ROTOR hub  section
+blank
+   1              Intype
+  11   300    2   No.of points input, No. used to define the blade detail, No of smoothings
+  0.0    40.0         
+  0.10   30.0     
+  0.20   15.0     
+  0.30   0.0       
+  0.40  -15.0      
+  0.50  -30.0     
+  0.6   -45.0      
+  0.7   -55.0     
+  0.80  -60.0     
+  0.90  -65.0     
+  1.00  -66.0     
+  0.05    0.02    0.30   0.40   0.05   0.01   2.0   Tkle,tkte,tkmax,xtmax, etc
+  0.0     0.0      1.0                               Fchord, Fperp, Fscale.
+  0.0     0.5      0.5                               Rotation, xrot, yrot.
+   0.2    0.7      35.0   -68.0                      Xcup, Xcdwn, betup, betdwn.
+blank
+4          Number of points used to define the stream surface
+   .0      .05      .07     .12
+   .5       .5       .5     .5
+   .070     .12      .5     .5
+    0.0     0.0       0     0     0       Fcentroid, Ftang, Flean, Fsweep, Faxial               
+    1.0     0                             Fscale. Fconst
+blank
+   ROTOR TIP  section
+blank
+   1              Intype
+  11   300    2   No.of points input, No. used to define the blade detail, No of smoothings
+  0.0    40.0         
+  0.10   30.0     
+  0.20   15.0     
+  0.30   0.0       
+  0.40  -15.0      
+  0.50  -30.0     
+  0.6   -45.0      
+  0.7   -55.0     1
+  0.80  -60.0     
+  0.90  -65.0     
+  1.00  -66.0        
+  0.05    0.02    0.30   0.40   0.05   0.01   2.0    Tkle,tkte,tkmax,xtmax, etc
+  0.0     0.0      1.0                               Fchord, Fperp, Fscale.
+  1.0     0.5      0.5                               Rotation, xrot, yrot.
+   0.2    0.7    35.0    -68.0                       Xcup, Xcdwn, betup, betdwn.
+blank
+8          Number of points used to define the stream surface
+  -0.05    .0       .05      .07     .12      .14     .16       0.17
+   0.574  .583       .603     .611    .631    .6346   0.6382    0.64
+   0.07   0.12       .611     .631 
+ 0.0     0.000     0     0     0       Fcentroid, Ftang, Flean, Fsweep, Faxial               
+ 1.0     0                             Fscale. Fconst
+blank
+ 95000.0  95000.0   45000.0   45000.0
+blank
+        2
+       0.0      1.0    
+     100000.  100000.0 
+     300.0     300.0 
+     -70.0     -70.0 
+      95.0      95.0 
+     -35.0     -35.0 
+      0.0       13.0

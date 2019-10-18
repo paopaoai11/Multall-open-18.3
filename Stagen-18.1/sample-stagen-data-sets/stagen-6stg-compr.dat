@@ -1,0 +1,1386 @@
+        287.5     1.4                   RGAS,  GAMMA
+        37        37                    IM, KM 
+      1.2500     20.0000                 FPRAT,  FPMAX
+      1.2500     20.0000                 RFRAT,  FRMAX
+         0                              IFDEFAULTS 
+        12         3                    NOWS, N SECTIONS 
+     1.000                              SCALING FACTOR 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        1
+  BLADE ROW  TYPE  =    R
+   25   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        50          NUMBER OF BLADES IN ROW. 
+   5000.00  84595.77  84595.77  99087.23  99087.23    RPM, STATIC PRESSURES THROUGH ROW
+    34   37   1    1    1    1   0.00500   5000.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           1 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -39.2326                BLADE CENTRE LINE ANGLES 
+      0.1139    -33.1209                BLADE CENTRE LINE ANGLES 
+      0.2903    -26.0261                BLADE CENTRE LINE ANGLES 
+      0.5018    -17.9617                BLADE CENTRE LINE ANGLES 
+      0.7399     -9.0939                BLADE CENTRE LINE ANGLES 
+      1.0000      0.2321                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0800    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.7500    0.5000  -39.2326    0.2321          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+   -0.0040    0.0535    0.3906    0.4019          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           1 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -46.6877                BLADE CENTRE LINE ANGLES 
+      0.1139    -42.2859                BLADE CENTRE LINE ANGLES 
+      0.2903    -37.1709                BLADE CENTRE LINE ANGLES 
+      0.5018    -31.2578                BLADE CENTRE LINE ANGLES 
+      0.7399    -24.5016                BLADE CENTRE LINE ANGLES 
+      1.0000    -16.9366                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0650    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.7500    0.5000  -46.6877  -16.9366          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+   -0.0020    0.0517    0.4453    0.4509          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           1 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -52.2532                BLADE CENTRE LINE ANGLES 
+      0.1139    -48.9973                BLADE CENTRE LINE ANGLES 
+      0.2903    -45.2523                BLADE CENTRE LINE ANGLES 
+      0.5018    -40.9396                BLADE CENTRE LINE ANGLES 
+      0.7399    -35.9806                BLADE CENTRE LINE ANGLES 
+      1.0000    -30.3112                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0500    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.7500    0.5000  -52.2532  -30.3112          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.0000    0.0500    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        2
+  BLADE ROW  TYPE  =    S
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        89          NUMBER OF BLADES IN ROW. 
+      0.00  99087.23  99087.23 109140.90 109140.90    RPM, STATIC PRESSURES THROUGH ROW
+    0    0    1    1    1    1   0.00000      0.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           2 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     49.9861                BLADE CENTRE LINE ANGLES 
+      0.1139     45.5946                BLADE CENTRE LINE ANGLES 
+      0.2903     40.3904                BLADE CENTRE LINE ANGLES 
+      0.5018     34.2386                BLADE CENTRE LINE ANGLES 
+      0.7399     27.0394                BLADE CENTRE LINE ANGLES 
+      1.0000     18.7882                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0600    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   49.9861   18.7882          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.0659    0.0994    0.4026    0.4086          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           2 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     46.7260                BLADE CENTRE LINE ANGLES 
+      0.1139     42.3320                BLADE CENTRE LINE ANGLES 
+      0.2903     37.2263                BLADE CENTRE LINE ANGLES 
+      0.5018     31.3237                BLADE CENTRE LINE ANGLES 
+      0.7399     24.5788                BLADE CENTRE LINE ANGLES 
+      1.0000     17.0245                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0750    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   46.7260   17.0245          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.0642    0.1009    0.4513    0.4543          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           2 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     43.7812                BLADE CENTRE LINE ANGLES 
+      0.1139     39.4319                BLADE CENTRE LINE ANGLES 
+      0.2903     34.4638                BLADE CENTRE LINE ANGLES 
+      0.5018     28.8267                BLADE CENTRE LINE ANGLES 
+      0.7399     22.5076                BLADE CENTRE LINE ANGLES 
+      1.0000     15.5560                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0900    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   43.7812   15.5560          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.0625    0.1025    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        3
+  BLADE ROW  TYPE  =    R
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        63          NUMBER OF BLADES IN ROW. 
+   5000.00 109140.90 109140.90 126312.79 126312.79    RPM, STATIC PRESSURES THROUGH ROW
+    34   37   1    1    1    1   0.00500   5000.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           3 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -42.1618                BLADE CENTRE LINE ANGLES 
+      0.1139    -36.6917                BLADE CENTRE LINE ANGLES 
+      0.2903    -30.3181                BLADE CENTRE LINE ANGLES 
+      0.5018    -22.9964                BLADE CENTRE LINE ANGLES 
+      0.7399    -14.7900                BLADE CENTRE LINE ANGLES 
+      1.0000     -5.9175                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0800    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -42.1618   -5.9175          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.1243    0.1704    0.4096    0.4184          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           3 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -47.7978                BLADE CENTRE LINE ANGLES 
+      0.1139    -43.6182                BLADE CENTRE LINE ANGLES 
+      0.2903    -38.7653                BLADE CENTRE LINE ANGLES 
+      0.5018    -33.1509                BLADE CENTRE LINE ANGLES 
+      0.7399    -26.7157                BLADE CENTRE LINE ANGLES 
+      1.0000    -19.4646                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0650    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -47.7978  -19.4646          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.1259    0.1689    0.4548    0.4592          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           3 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -52.2532                BLADE CENTRE LINE ANGLES 
+      0.1139    -48.9973                BLADE CENTRE LINE ANGLES 
+      0.2903    -45.2523                BLADE CENTRE LINE ANGLES 
+      0.5018    -40.9396                BLADE CENTRE LINE ANGLES 
+      0.7399    -35.9806                BLADE CENTRE LINE ANGLES 
+      1.0000    -30.3112                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0500    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -52.2532  -30.3112          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.1275    0.1675    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        4
+  BLADE ROW  TYPE  =    S
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        90          NUMBER OF BLADES IN ROW. 
+      0.00 126312.79 126312.79 138149.55 138149.55    RPM, STATIC PRESSURES THROUGH ROW
+    0    0    1    1    1    1   0.00000      0.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           4 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     48.8513                BLADE CENTRE LINE ANGLES 
+      0.1139     44.4549                BLADE CENTRE LINE ANGLES 
+      0.2903     39.2814                BLADE CENTRE LINE ANGLES 
+      0.5018     33.2145                BLADE CENTRE LINE ANGLES 
+      0.7399     26.1758                BLADE CENTRE LINE ANGLES 
+      1.0000     18.1767                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0600    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   48.8513   18.1767          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.1803    0.2149    0.4189    0.4236          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           4 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     46.2090                BLADE CENTRE LINE ANGLES 
+      0.1139     41.8207                BLADE CENTRE LINE ANGLES 
+      0.2903     36.7373                BLADE CENTRE LINE ANGLES 
+      0.5018     30.8805                BLADE CENTRE LINE ANGLES 
+      0.7399     24.2117                BLADE CENTRE LINE ANGLES 
+      1.0000     16.7675                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0750    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   46.2090   16.7675          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.1789    0.2162    0.4595    0.4618          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           4 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     43.7812                BLADE CENTRE LINE ANGLES 
+      0.1139     39.4319                BLADE CENTRE LINE ANGLES 
+      0.2903     34.4638                BLADE CENTRE LINE ANGLES 
+      0.5018     28.8267                BLADE CENTRE LINE ANGLES 
+      0.7399     22.5076                BLADE CENTRE LINE ANGLES 
+      1.0000     15.5560                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0900    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   43.7812   15.5560          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.1775    0.2175    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        5
+  BLADE ROW  TYPE  =    R
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        63          NUMBER OF BLADES IN ROW. 
+   5000.00 138149.55 138149.55 158246.59 158246.59    RPM, STATIC PRESSURES THROUGH ROW
+    34   37   1    1    1    1   0.00500   5000.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           5 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -44.1512                BLADE CENTRE LINE ANGLES 
+      0.1139    -39.1207                BLADE CENTRE LINE ANGLES 
+      0.2903    -33.2549                BLADE CENTRE LINE ANGLES 
+      0.5018    -26.4837                BLADE CENTRE LINE ANGLES 
+      0.7399    -18.8140                BLADE CENTRE LINE ANGLES 
+      1.0000    -10.3801                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0800    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -44.1512  -10.3801          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.2348    0.2799    0.4242    0.4310          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           5 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -48.5932                BLADE CENTRE LINE ANGLES 
+      0.1139    -44.5745                BLADE CENTRE LINE ANGLES 
+      0.2903    -39.9127                BLADE CENTRE LINE ANGLES 
+      0.5018    -34.5185                BLADE CENTRE LINE ANGLES 
+      0.7399    -28.3249                BLADE CENTRE LINE ANGLES 
+      1.0000    -21.3185                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0650    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -48.5932  -21.3185          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.2362    0.2787    0.4621    0.4655          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           5 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -52.2532                BLADE CENTRE LINE ANGLES 
+      0.1139    -48.9973                BLADE CENTRE LINE ANGLES 
+      0.2903    -45.2523                BLADE CENTRE LINE ANGLES 
+      0.5018    -40.9396                BLADE CENTRE LINE ANGLES 
+      0.7399    -35.9806                BLADE CENTRE LINE ANGLES 
+      1.0000    -30.3112                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0500    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -52.2532  -30.3112          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.2375    0.2775    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        6
+  BLADE ROW  TYPE  =    S
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        90          NUMBER OF BLADES IN ROW. 
+      0.00 158246.59 158246.59 172023.05 172023.05    RPM, STATIC PRESSURES THROUGH ROW
+    0    0    1    1    1    1   0.00000      0.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           6 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     48.0104                BLADE CENTRE LINE ANGLES 
+      0.1139     43.6142                BLADE CENTRE LINE ANGLES 
+      0.2903     38.4672                BLADE CENTRE LINE ANGLES 
+      0.5018     32.4663                BLADE CENTRE LINE ANGLES 
+      0.7399     25.5471                BLADE CENTRE LINE ANGLES 
+      1.0000     17.7305                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0600    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   48.0104   17.7305          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.2899    0.3253    0.4315    0.4351          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           6 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     45.8201                BLADE CENTRE LINE ANGLES 
+      0.1139     41.4368                BLADE CENTRE LINE ANGLES 
+      0.2903     36.3707                BLADE CENTRE LINE ANGLES 
+      0.5018     30.5487                BLADE CENTRE LINE ANGLES 
+      0.7399     23.9368                BLADE CENTRE LINE ANGLES 
+      1.0000     16.5742                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0750    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   45.8201   16.5742          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.2887    0.3264    0.4657    0.4675          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           6 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     43.7812                BLADE CENTRE LINE ANGLES 
+      0.1139     39.4319                BLADE CENTRE LINE ANGLES 
+      0.2903     34.4638                BLADE CENTRE LINE ANGLES 
+      0.5018     28.8267                BLADE CENTRE LINE ANGLES 
+      0.7399     22.5076                BLADE CENTRE LINE ANGLES 
+      1.0000     15.5560                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0900    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   43.7812   15.5560          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.2875    0.3275    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        7
+  BLADE ROW  TYPE  =    R
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        64          NUMBER OF BLADES IN ROW. 
+   5000.00 172023.05 172023.05 195292.63 195292.63    RPM, STATIC PRESSURES THROUGH ROW
+    34   37   1    1    1    1   0.00500   5000.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           7 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -45.5791                BLADE CENTRE LINE ANGLES 
+      0.1139    -40.8640                BLADE CENTRE LINE ANGLES 
+      0.2903    -35.3684                BLADE CENTRE LINE ANGLES 
+      0.5018    -29.0100                BLADE CENTRE LINE ANGLES 
+      0.7399    -21.7640                BLADE CENTRE LINE ANGLES 
+      1.0000    -13.7094                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0800    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -45.5791  -13.7094          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.3452    0.3896    0.4356    0.4409          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           7 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -49.1868                BLADE CENTRE LINE ANGLES 
+      0.1139    -45.2889                BLADE CENTRE LINE ANGLES 
+      0.2903    -40.7713                BLADE CENTRE LINE ANGLES 
+      0.5018    -35.5446                BLADE CENTRE LINE ANGLES 
+      0.7399    -29.5373                BLADE CENTRE LINE ANGLES 
+      1.0000    -22.7239                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0650    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -49.1868  -22.7239          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.3464    0.3885    0.4678    0.4705          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           7 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -52.2532                BLADE CENTRE LINE ANGLES 
+      0.1139    -48.9973                BLADE CENTRE LINE ANGLES 
+      0.2903    -45.2523                BLADE CENTRE LINE ANGLES 
+      0.5018    -40.9396                BLADE CENTRE LINE ANGLES 
+      0.7399    -35.9806                BLADE CENTRE LINE ANGLES 
+      1.0000    -30.3112                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0500    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -52.2532  -30.3112          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.3475    0.3875    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        8
+  BLADE ROW  TYPE  =    S
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        90          NUMBER OF BLADES IN ROW. 
+      0.00 195292.63 195292.63 211167.00 211167.00    RPM, STATIC PRESSURES THROUGH ROW
+    0    0    1    1    1    1   0.00000      0.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           8 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     47.3671                BLADE CENTRE LINE ANGLES 
+      0.1139     42.9732                BLADE CENTRE LINE ANGLES 
+      0.2903     37.8487                BLADE CENTRE LINE ANGLES 
+      0.5018     31.9000                BLADE CENTRE LINE ANGLES 
+      0.7399     25.0723                BLADE CENTRE LINE ANGLES 
+      1.0000     17.3930                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0600    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   47.3671   17.3930          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.3996    0.4356    0.4413    0.4441          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           8 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     45.5191                BLADE CENTRE LINE ANGLES 
+      0.1139     41.1400                BLADE CENTRE LINE ANGLES 
+      0.2903     36.0878                BLADE CENTRE LINE ANGLES 
+      0.5018     30.2929                BLADE CENTRE LINE ANGLES 
+      0.7399     23.7248                BLADE CENTRE LINE ANGLES 
+      1.0000     16.4247                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0750    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   45.5191   16.4247          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.3985    0.4365    0.4706    0.4721          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           8 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     43.7812                BLADE CENTRE LINE ANGLES 
+      0.1139     39.4319                BLADE CENTRE LINE ANGLES 
+      0.2903     34.4638                BLADE CENTRE LINE ANGLES 
+      0.5018     28.8267                BLADE CENTRE LINE ANGLES 
+      0.7399     22.5076                BLADE CENTRE LINE ANGLES 
+      1.0000     15.5560                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0900    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   43.7812   15.5560          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.3975    0.4375    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =        9
+  BLADE ROW  TYPE  =    R
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        64          NUMBER OF BLADES IN ROW. 
+   5000.00 211167.00 211167.00 237859.06 237859.06    RPM, STATIC PRESSURES THROUGH ROW
+    34   37   1    1    1    1   0.00500   5000.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER           9 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -46.6461                BLADE CENTRE LINE ANGLES 
+      0.1139    -42.1660                BLADE CENTRE LINE ANGLES 
+      0.2903    -36.9487                BLADE CENTRE LINE ANGLES 
+      0.5018    -30.9065                BLADE CENTRE LINE ANGLES 
+      0.7399    -23.9953                BLADE CENTRE LINE ANGLES 
+      1.0000    -16.2577                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0800    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -46.6461  -16.2577          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.4555    0.4993    0.4445    0.4488          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           9 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -49.6435                BLADE CENTRE LINE ANGLES 
+      0.1139    -45.8391                BLADE CENTRE LINE ANGLES 
+      0.2903    -41.4333                BLADE CENTRE LINE ANGLES 
+      0.5018    -36.3373                BLADE CENTRE LINE ANGLES 
+      0.7399    -30.4768                BLADE CENTRE LINE ANGLES 
+      1.0000    -23.8177                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0650    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -49.6435  -23.8177          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.4565    0.4984    0.4723    0.4744          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER           9 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -52.2532                BLADE CENTRE LINE ANGLES 
+      0.1139    -48.9973                BLADE CENTRE LINE ANGLES 
+      0.2903    -45.2523                BLADE CENTRE LINE ANGLES 
+      0.5018    -40.9396                BLADE CENTRE LINE ANGLES 
+      0.7399    -35.9806                BLADE CENTRE LINE ANGLES 
+      1.0000    -30.3112                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0500    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -52.2532  -30.3112          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.4575    0.4975    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =       10
+  BLADE ROW  TYPE  =    S
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        90          NUMBER OF BLADES IN ROW. 
+      0.00 237859.06 237859.06 255991.31 255991.31    RPM, STATIC PRESSURES THROUGH ROW
+    0    0    1    1    1    1   0.00000      0.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER          10 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     46.8625                BLADE CENTRE LINE ANGLES 
+      0.1139     42.4717                BLADE CENTRE LINE ANGLES 
+      0.2903     37.3662                BLADE CENTRE LINE ANGLES 
+      0.5018     31.4592                BLADE CENTRE LINE ANGLES 
+      0.7399     24.7035                BLADE CENTRE LINE ANGLES 
+      1.0000     17.1304                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0600    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   46.8625   17.1304          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.5093    0.5458    0.4491    0.4514          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER          10 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     45.2809                BLADE CENTRE LINE ANGLES 
+      0.1139     40.9053                BLADE CENTRE LINE ANGLES 
+      0.2903     35.8642                BLADE CENTRE LINE ANGLES 
+      0.5018     30.0908                BLADE CENTRE LINE ANGLES 
+      0.7399     23.5574                BLADE CENTRE LINE ANGLES 
+      1.0000     16.3064                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0750    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   45.2809   16.3064          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.5084    0.5467    0.4745    0.4757          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER          10 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     43.7812                BLADE CENTRE LINE ANGLES 
+      0.1139     39.4319                BLADE CENTRE LINE ANGLES 
+      0.2903     34.4638                BLADE CENTRE LINE ANGLES 
+      0.5018     28.8267                BLADE CENTRE LINE ANGLES 
+      0.7399     22.5076                BLADE CENTRE LINE ANGLES 
+      1.0000     15.5560                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0900    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000   43.7812   15.5560          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.5075    0.5475    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =       11
+  BLADE ROW  TYPE  =    R
+   20   70   15     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        64          NUMBER OF BLADES IN ROW. 
+   5000.00 255991.31 255991.31 286358.25 286358.25    RPM, STATIC PRESSURES THROUGH ROW
+    34   37   1    1    1    1   0.00500   5000.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER          11 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -47.4682                BLADE CENTRE LINE ANGLES 
+      0.1139    -43.1686                BLADE CENTRE LINE ANGLES 
+      0.2903    -38.1664                BLADE CENTRE LINE ANGLES 
+      0.5018    -32.3712                BLADE CENTRE LINE ANGLES 
+      0.7399    -25.7274                BLADE CENTRE LINE ANGLES 
+      1.0000    -18.2524                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0800    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -47.4682  -18.2524          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.5658    0.6091    0.4517    0.4552          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER          11 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -50.0035                BLADE CENTRE LINE ANGLES 
+      0.1139    -46.2732                BLADE CENTRE LINE ANGLES 
+      0.2903    -41.9560                BLADE CENTRE LINE ANGLES 
+      0.5018    -36.9641                BLADE CENTRE LINE ANGLES 
+      0.7399    -31.2212                BLADE CENTRE LINE ANGLES 
+      1.0000    -24.6875                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0650    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -50.0035  -24.6875          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.5667    0.6083    0.4759    0.4776          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER          11 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000    -52.2532                BLADE CENTRE LINE ANGLES 
+      0.1139    -48.9973                BLADE CENTRE LINE ANGLES 
+      0.2903    -45.2523                BLADE CENTRE LINE ANGLES 
+      0.5018    -40.9396                BLADE CENTRE LINE ANGLES 
+      0.7399    -35.9806                BLADE CENTRE LINE ANGLES 
+      1.0000    -30.3112                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0500    0.3500    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.5000  -52.2532  -30.3112          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.5675    0.6075    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************STARTING DATA FOR A NEW BLADE ROW***************************
+  BLADE ROW NUMBER =       12
+  BLADE ROW  TYPE  =    S
+   20   70   20     NPOINTS_UP, NPOINTS_ON, NPOINTS_DWN 
+         0.0000         0.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.1000         0.7000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.2000         1.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.3000         1.4000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.4000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.5000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.6000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.7000         3.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.8000         2.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         0.9000         2.0000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+         1.0000         1.5000     FRACTION AXIAL CHORD,  RELATIVE GRID SPACING
+        91          NUMBER OF BLADES IN ROW. 
+      0.00 286358.25 286358.25 306909.59 306909.59    RPM, STATIC PRESSURES THROUGH ROW
+    0    0    1    1    1    1   0.00000      0.00    TIP GAPS, WALL ROTNS and RPMHUB
+ *********************** ROW NUMBER          12 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           1 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     46.4587                BLADE CENTRE LINE ANGLES 
+      0.1139     42.0711                BLADE CENTRE LINE ANGLES 
+      0.2903     36.9816                BLADE CENTRE LINE ANGLES 
+      0.5018     31.1087                BLADE CENTRE LINE ANGLES 
+      0.7399     24.4104                BLADE CENTRE LINE ANGLES 
+      1.0000     16.9216                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0600    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.7500   46.4587   16.9216          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0269   -0.0040    0.0535    0.0597    0.0659    0.0994    0.1108
+    0.1176    0.1243    0.1704    0.1753    0.1803    0.2149    0.2242    0.2295
+    0.2348    0.2799    0.2849    0.2899    0.3253    0.3342    0.3397    0.3452
+    0.3896    0.3946    0.3996    0.4356    0.4442    0.4499    0.4555    0.4993
+    0.5043    0.5093    0.5458    0.5542    0.5600    0.5658    0.6091    0.6141
+    0.6191    0.6560    0.6768    0.6975
+    0.3894    0.3895    0.3906    0.4019    0.4023    0.4026    0.4086    0.4091
+    0.4092    0.4096    0.4184    0.4187    0.4189    0.4236    0.4239    0.4239
+    0.4242    0.4310    0.4313    0.4315    0.4351    0.4353    0.4354    0.4356
+    0.4409    0.4411    0.4413    0.4441    0.4443    0.4444    0.4445    0.4488
+    0.4490    0.4491    0.4514    0.4516    0.4516    0.4517    0.4552    0.4554
+    0.4555    0.4572    0.4575    0.4575
+    0.6191    0.6560    0.4555    0.4572          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER          12 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           2 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     45.0888                BLADE CENTRE LINE ANGLES 
+      0.1139     40.7162                BLADE CENTRE LINE ANGLES 
+      0.2903     35.6842                BLADE CENTRE LINE ANGLES 
+      0.5018     29.9282                BLADE CENTRE LINE ANGLES 
+      0.7399     23.4226                BLADE CENTRE LINE ANGLES 
+      1.0000     16.2109                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0750    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.7500   45.0888   16.2109          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0260   -0.0020    0.0517    0.0580    0.0642    0.1009    0.1108
+    0.1184    0.1259    0.1689    0.1739    0.1789    0.2162    0.2242    0.2302
+    0.2362    0.2787    0.2837    0.2887    0.3264    0.3342    0.3403    0.3464
+    0.3885    0.3935    0.3985    0.4365    0.4442    0.4504    0.4565    0.4984
+    0.5034    0.5084    0.5467    0.5542    0.5604    0.5667    0.6083    0.6133
+    0.6183    0.6568    0.6771    0.6975
+    0.4447    0.4448    0.4453    0.4509    0.4511    0.4513    0.4543    0.4546
+    0.4546    0.4548    0.4592    0.4594    0.4595    0.4618    0.4620    0.4620
+    0.4621    0.4655    0.4656    0.4657    0.4675    0.4677    0.4677    0.4678
+    0.4705    0.4706    0.4706    0.4721    0.4722    0.4722    0.4723    0.4744
+    0.4745    0.4745    0.4757    0.4758    0.4758    0.4759    0.4776    0.4777
+    0.4777    0.4786    0.4787    0.4788
+    0.6183    0.6568    0.4777    0.4786          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+ *********************** ROW NUMBER          12 ************************************
+ **********STARTING NEW BLADE SECTION, SECTION NUMBER           3 **************
+ *************************BLANK LINE*****************************************
+    1                                   INTYPE- TYPE OF BLADE GEOMETRY INPUT
+    6  200    4                         NPIN, NXPTS, NSMOOTH 
+      0.0000     43.7812                BLADE CENTRE LINE ANGLES 
+      0.1139     39.4319                BLADE CENTRE LINE ANGLES 
+      0.2903     34.4638                BLADE CENTRE LINE ANGLES 
+      0.5018     28.8267                BLADE CENTRE LINE ANGLES 
+      0.7399     22.5076                BLADE CENTRE LINE ANGLES 
+      1.0000     15.5560                BLADE CENTRE LINE ANGLES 
+    0.0200    0.0100    0.0900    0.4000    0.0200    0.0100    2.0000     BLADE PROFILE SPECIFICATION
+    1.0000    0.0000    1.0000                    FCHORD, FPERP, FTKSCALE
+    0.0000    0.5000    0.5000                    ROTN,XROT,YROT 
+    0.5000    0.7500   43.7812   15.5560          XCUP, XCDWN, BETUP, BETDWN
+  BLANK LINE 
+   44               NUMBER OF POINTS ON THE STREAM SURFACE.
+   -0.0500   -0.0250    0.0000    0.0500    0.0562    0.0625    0.1025    0.1108
+    0.1192    0.1275    0.1675    0.1725    0.1775    0.2175    0.2242    0.2308
+    0.2375    0.2775    0.2825    0.2875    0.3275    0.3342    0.3408    0.3475
+    0.3875    0.3925    0.3975    0.4375    0.4442    0.4508    0.4575    0.4975
+    0.5025    0.5075    0.5475    0.5542    0.5608    0.5675    0.6075    0.6125
+    0.6175    0.6575    0.6775    0.6975
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000    0.5000
+    0.5000    0.5000    0.5000    0.5000
+    0.6175    0.6575    0.5000    0.5000          LEADING AND TRAILING EDGE COORDINATES
+    1.0000    0.0000    0.0000    0.0000    0.000 FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+    1.0000    0.0000                              FSCALE, FCONST 
+  PUPHUB, PUPTIP, PDHUB,PDTIP 
+      84595.766      84595.766     306909.594     306909.594     INLET AND EXIT STATIC PRESSURES
+  BLANK LINE 
+    2                                  NUMBER OF POINTS FOR INLET BOUNDARY CONDITIONS
+   0.00000000       1.00000000                FRAC SPAN AT INLET 
+   100000.000       100000.000                STAGNATION PRESSURE 
+   300.000000       300.000000                STAGNATION TEMPERATURE
+   0.00000000       0.00000000                TANGENTIAL VELOCITY
+   157.079498       157.079498                MERIDIONAL VELOCITY 
+   20.5560493       20.5560493                YAW ANGLE IN
+  0.234902635       0.00000000                PITCH ANGLE IN

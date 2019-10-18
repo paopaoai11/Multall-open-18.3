@@ -1,0 +1,49 @@
+C                                       TURBO_TYP,"C" FOR A COMPRESSOR,"T" FOR A TURBINE
+AXI                                     FLO_TYP FOR AXIAL OR MIXED FLOW MACHINE 
+     287.150       1.400                GAS PROPERTOES, RGAS, GAMMA 
+       1.000     300.000                POIN,  TOIN 
+    6                                   NUMBER OF STAGES IN THE MACHINE 
+T                                       CHOICE OF DESIGN POINT RADIUS, HUB, MID or TIP
+    5000.000                            ROTATION SPEED, RPM 
+      50.000                            MASS FLOW RATE, FLOWIN. 
+A                                       INTYPE, TO CHOOSE THE METHOD OF DEFINING THE VELOCITY TRIANGLES
+       0.600       0.600       0.350    REACTION, FLOW COEFF., LOADING COEFF.
+A                                       RADTYPE, TO CHOOSE THE DESIGN POINT RADIUS
+       0.500                            THE DESIGN POINT RADIUS 
+       0.050       0.040                BLADE AXIAL CHORDS IN METRES.
+       0.250       0.500                ROW GAP  AND STAGE GAP 
+       0.900                            GUESS OF THE STAGE ISENTROPIC EFFICIENCY
+       5.000       5.000                ESTIMATE OF THE DEVIATION ANGLES
+       0.000       0.000                FIRST AND SECOND ROW INCIDENCE ANGLES
+    88.000    92.000                    QO ANGLES AT LE  AND TE OF ROW 1 
+    92.000    88.000                    QO ANGLES AT LE  AND TE OF ROW 2 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+y                                       IFSAME_ALL, SET = "Y" TO REPEAT THE LAST STAGE VELOCITY TRIANGLES 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+y                                       IFSAME_ALL, SET = "Y" TO REPEAT THE LAST STAGE VELOCITY TRIANGLES 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+y                                       IFSAME_ALL, SET = "Y" TO REPEAT THE LAST STAGE VELOCITY TRIANGLES 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+y                                       IFSAME_ALL, SET = "Y" TO REPEAT THE LAST STAGE VELOCITY TRIANGLES 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+y                                       IFSAME_ALL, SET = "Y" TO REPEAT THE LAST STAGE VELOCITY TRIANGLES 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+Y                                       IS OUTPUT REQUESTED FOR ALL BLADE ROWS ? 
+n                                       ROTOR No.   1 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+       0.080       0.350                MAX THICKNESS AND ITS LOCATION FOR ROTOR   1 SECTION No.  1
+       0.065       0.350                MAX THICKNESS AND ITS LOCATION FOR ROTOR   1 SECTION No.  2
+       0.050       0.350                MAX THICKNESS AND ITS LOCATION FOR ROTOR   1 SECTION No.  3
+n                                       STATOR No.  1 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+       0.060       0.400                MAX THICKNESS AND ITS LOCATION FOR STATOR  1 SECTION No.  1
+       0.075       0.400                MAX THICKNESS AND ITS LOCATION FOR STATOR  1 SECTION No.  2
+       0.090       0.400                MAX THICKNESS AND ITS LOCATION FOR STATOR  1 SECTION No.  3
+y                                       ROTOR No.   2 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       STATOR No.  2 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       ROTOR No.   3 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       STATOR No.  3 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       ROTOR No.   4 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       STATOR No.  4 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       ROTOR No.   5 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       STATOR No.  5 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       ROTOR No.   6 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.
+y                                       STATOR No.  6 SET ANSTK= "Y" TO CHOOSE THE SAME BLADE SECTIONS AS THE LAST STAGE.

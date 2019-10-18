@@ -1,0 +1,2590 @@
+C******************************************************************************
+C         PROGRAM TO GENERATE A  3D DATA SET FOR MULTIPLE BLADE ROWS          *
+C         AND WRITE OUT A DATA FILE FOR THE 3D PROGRAM  'MULTALL'             *
+C                                                                             *
+C                     VERSION STAGEN-16.4  ,  DECEMBER 2016.                  *
+C                                                                             *
+C                      ALL PROGRAM WRITTEN by JDD                             *
+C******************************************************************************
+C
+      PARAMETER(NSURF=1000,NSPAN=100,NXON=500,NPIT=100,
+     &          NSS=100,NSTAGE=25)
+C
+      DIMENSION  XIN(NSURF),YIN(NSURF),YSIN(NXON),YPIN(NXON),TKIN(NXON), 
+     &           FRACX(NXON),SLOPE(NXON),XGRID(NXON),F(NXON),DYDX(NXON),
+     &           XGRIDON(NXON),YGRID(NXON),TKGRID(NXON),FP(NPIT),
+     &           RIN(NSS),XRIN(NSS),RGRID(NXON),FR(NSPAN),
+     &           F1(NPIT),F2(NPIT),B1(NPIT),BR(NPIT),SUMFR(NSPAN),
+     &           XFRAC(NXON),RELSPCE(NXON),FSPAN(NSPAN),B1IN(NSPAN),
+     &           BRIN(NSPAN),POIN(NSPAN),TOIN(NSPAN),VTIN(NSPAN),
+     &           VMIN(NSPAN),PO1(NPIT),TO1(NPIT),VT1(NPIT),VM1(NPIT),
+     &           TKMULT(NSPAN),DTAN_ANGL(NXON),CURV(NXON)
+C
+      DIMENSION XSURF(NSURF),YSURF(NSURF),XCLOCK(NSURF),YCLOCK(NSURF),
+     &          XUP(NXON),YUP(NXON),YLOW(NXON),SGRID(NXON),SMERID(NSS),
+     &          XLOW(NXON),XLTE(NXON),YSTE(NXON),YPTE(NXON),
+     &          FTHICK(NSURF),SLPUP(NXON),SLPLOW(NXON),FACLETE(NXON),
+     &          XUPP(NXON),YUPP(NXON),XLOWW(NXON),YLOWW(NXON),
+     &          DYDXUP(NXON),DYDXLOW(NXON),SNEWUP(NXON),SNEWLOW(NXON),
+     &          TKHIGH(NXON),TKLOW(NXON),TKH(NXON),TKL(NXON),
+     &          NSTG(NSTAGE),YMID(NXON),THETA_NEW(NXON)
+C
+       REAL MACHLIM
+C
+       CHARACTER*72  LABEL,ROWTIT,dummy line,HEADING, INFILE
+       CHARACTER*1   ANS
+C 
+C     SET THE INPUT AND OUTPUT UNITS
+C
+C     THE MAIN INPUT FILE IS USUALLY NAMED 'stagen.dat'
+C
+C     A FILE 'stagen.out' CONTAINS THE BLADE COORDINATES AND OTHER POSSIBLY
+C     USEFUL DATA.
+C
+C     THE FILE 'stage_old.dat' IS AN INPUT FILE FOR THE MULTISTAGE 3D PROGRAM
+C     "MULTALL"  IN THE OLD (Pre-2016) FORMAT.
+C 
+C     THE FILE 'stage_new.dat' IS AN INPUT FILE FOR THE MULTISTAGE 3D PROGRAM
+C     "MULTALL"  IN THE NEW (Post 2016) FORMAT.
+C
+C      OPEN  (UNIT=1,FILE='/dev/tty')
+      INFILE   = 'stagen.dat'
+      WRITE(6,*) ' The input file is usually named "stagen.dat" .'
+      WRITE(6,*) ' Is this OK ?  Answer Y or N '
+      READ(5,*) ANS
+      IF(ANS.EQ.'N'.OR.ANS.EQ.'n') THEN
+           WRITE(6,*) ' INPUT THE NAME OF THE INPUT FILE'
+           READ(5,1080) INFILE
+      END IF
+C
+ 1080 FORMAT(A80)
+C
+C
+      WRITE(6,*) ' Input file = ' ,INFILE
+C
+      OPEN(UNIT=7,FILE= INFILE)
+C
+      OPEN(UNIT=8,FILE=  'stagen.out')
+      OPEN(UNIT=4,FILE=  'stage_old.dat')
+      OPEN(UNIT=10,FILE= 'stage_new.dat')
+C
+      PI      = 3.1415927
+      DEGRAD  = PI/180.
+      RADDEG  = 180/PI
+C
+C      INPUT THE GAS CONSTANT AND SPECIFIC HEAT RATIO.
+C      THEN CALCULATE  CP  THE SPECIC HEAT AT CONSTANT PRESSURE
+C
+      READ(7,*)  RGAS, GA
+      WRITE(8,*) RGAS, GA
+      CP = RGAS*GA/(GA-1.0)
+C
+C      INPUT THE NUMBER OF GRID POINTS REQUIRED IN THE PITCHWISE
+C      AND SPANWISE DIRECTIONS.   IM = PITCHWISE, KM= SPANWISE.
+C
+      READ(7,*)  IM,KM
+      WRITE(8,*) IM,KM
+C
+      IMM1=IM-1
+      KMM1=KM-1
+C
+C      INPUT THE EXPANSION RATIOS OF THE GRID IN PITCWISE DIRECTION
+C      TYPICALLY =1.25.
+C      ALSO  THE RATIO OF MAXIMUM TO MINIMUM GRID SPACING IN THE PITCHWISE
+C      DIRECTION, TYPICALLY = 20.
+C
+      READ(7,*)  FPRAT,FPMAX
+      WRITE(8,*) FPRAT,FPMAX
+C
+      F1(1)=1.
+      DO 81 I=2,IMM1
+      F1(I)=F1(I-1)*FPRAT
+   81 CONTINUE
+      DO 52 I=1,IMM1
+      F2(I)= F1(IM-I)
+   52 CONTINUE
+      DO 53 I=1,IMM1
+      FP(I)=F1(I)
+      IF(F1(I).GT.F2(I)) FP(I)= F2(I)
+      IF(FP(I).GT.FPMAX) FP(I)= FPMAX
+   53 CONTINUE
+C
+C      INPUT THE EXPANSION RATIOS OF THE GRID IN THE SPANWISE DIRECTION
+C      TYPICALLY =1.25.
+C      ALSO  THE RATIO OF MAXIMUM TO MINIMUM GRID SPACING IN THE SPANWISE
+C      DIRECTION, TYPICALLY =20.
+C
+
+      READ(7,*)  FRRAT,FRMAX
+      WRITE(8,*) FRRAT,FRMAX
+C
+      F1(1)=1.
+      SUMFR(1)=0.0
+      DO 91 K=2,KMM1
+      F1(K)=F1(K-1)*FRRAT
+   91 CONTINUE
+      DO 62 K=1,KMM1
+      F2(K)= F1(KM-K)
+   62 CONTINUE
+      DO 63 K=1,KMM1
+      FR(K)=F1(K)
+      IF(F1(K).GT.F2(K)) FR(K)= F2(K)
+      IF(FR(K).GT.FRMAX) FR(K)= FRMAX
+   63 CONTINUE
+      DO 64 K=2,KM
+   64 SUMFR(K)=SUMFR(K-1)+FR(K-1)
+C
+C********************************************************************************
+C********************************************************************************
+C  DECIDE WHETHER TO USE DEFAULT VARIABLES OR TO INPUT THEM AS DATA
+C
+      READ(7,*) IFDEF
+C
+C     INPUT THE PROGRAM CONTROL VARIABLES IF REQUESTED, i.e. IF  IFDEF > 0 .
+C
+      IF(IFDEF.NE.0) THEN
+C
+      READ(7,*) NMAX,NCHANGE
+      READ(7,*) IN_VTAN,IN_PRESS,INPUT,IN_VR,ITIMST,ISMTH,IPOUT,
+     &          IN_FLOW,ILOS,NLOS,IF_RESTART,IOUTST,IBOUND,ISHIFT
+      READ(7,*) IR,JR,KR,IRBB,JRBB,KRBB,NSBUP,NSBON,NSBDN,IFMIX,NEWGRID
+      READ(7,*) JTRANS,JTRANP,JTRANH,JTRANT
+      READ(7,*) IF_CUSP,ICUSP,LCUSP,LCUSPUP,IFANGLES,IF_DESIGN
+      READ(7,*) CP,GA,CFL,SFT,SFX,FAC_4TH,MACHLIM
+      READ(7,*) DAMP,FBLK1,FBLK2,FBLK3,SFEX,CLIM,RFIN
+      READ(7,*) IFMIX,RFMIX,FSMTHB,FEXTRAP,FANGLE,NEXTRAP_LE,NEXTRAP_TE
+      READ(7,*) FSTURB,TURBVIS_DAMP,TURBVIS_LIM,REYNO,PRANDTL,RF_VIS,
+     &          FTRANS,YPLUSWALL,YPLAM,YPTURB
+      READ(7,*) FAC_STMIX,FAC_ST0,FAC_ST1,FAC_ST2,FAC_ST3,FAC_SFVIS,
+     &          FAC_VORT, FAC_PGRAD
+      READ(7,*) FRACPB,FRACPW,FRACPUP,FRACPIN,FRACPLE,FRACPTE,FRACPDWN
+C
+      ENDIF
+C
+C********************************************************************************
+C********************************************************************************
+C  SET THE DEFAULT VALUES OF THE CONTROL VARIABLES IF   IFDEF = 0 .
+C
+      IF(IFDEF.EQ.0) THEN
+C   SET THE DEFAULT INTEGERS
+      NMAX   = 9000 ! MAXIMUM NUMBER OF TIME STEPS
+      IN_VTAN = 0   ! VALUE OF IN_VTAN - SEE MULTALL MANUAL
+      IN_PRESS= 0   ! VALUE OF IN_PRESS - SEE MULTALL MANUAL
+      INPUT  = 2    ! VALUE OF IN_PUT - SEE MULTALL MANUAL
+      IN_VR  = 1    ! VALUE OF IN_VR - SEE MULTALL MANUAL
+      ITIMST = 3    ! USE THE BASIC SCREE SCHEME.
+      IPOUT  = 1    ! VALUE OF IPOUT - SEE MULTALL MANUAL
+      IN_FLOW= 0    ! VALUE OF IN_FLOW - SEE MULTALL MANUAL
+      ILOS   = 10   ! USE THE SIMPLE MIXING LENGTH MODEL
+      NLOS   = 5    ! UPDATE THE VISCOUS TERMS EVERY 5 TIMESTEPS
+      IF_RESTART  = 0 ! DO NOT USE A RESTART FILE
+      IOUTST = 1    ! WRITE A RESTART FILE, 
+      IBOUND = 0    ! VISCOUS FORCES ON ALL SOLID SURFACES
+      IR     = 3    ! FIRST MULTIGRID BLOCK SIZE IN THE "I", PITCHWISE DIRECTION
+      JR     = IR   ! FIRST MULTIGRID BLOCK SIZE IN THE "J", MERIDIONAL DIRECTION
+      KR     = 3    ! FIRST MULTIGRID BLOCK SIZE IN THE "K", SPANWISE DIRECTION
+      IRBB   = 9    ! SECOND MULTIGRID BLOCK SIZE IN THE "I", PITCHWISE DIRECTION
+      JRBB   = IRBB ! SECOND MULTIGRID BLOCK SIZE IN THE "J", MERIDIONAL DIRECTION
+      KRBB   = 9    ! SECOND MULTIGRID BLOCK SIZE IN THE "K", SPANWISE DIRECTION
+      NSBUP  = 1    ! NUMBER OF SUPERBLOCKS UPSTREAM OF THE LEADING EDGE
+      NSBON  = 3    ! NUMBER OF SUPERBLOCKS ON THE BLADE
+      NSBDN  = 1    ! NUMBER OF SUPERBLOCKS BEHIND THE TRAILING EDGE
+      IFMIX  = 1    ! USE MIXING PLANES
+      NEWGRID= 0    ! DO NOT GENERATE A NEW GRID
+      JTRANS = 0    ! J VALUE FOR TRANSITION TO TURBULENT BOUNDARY LAYERS ON THE "I" = 1 SURFACE
+      JTRANP = 0    ! J VALUE FOR TRANSITION TO TURBULENT BOUNDARY LAYERS ON THE "I" = IM SURFACE
+      JTRANH = 0    ! J VALUE FOR TRANSITION TO TURBULENT BOUNDARY LAYERS ON THE HUB.
+      JTRANT = 0    ! J VALUE FOR TRANSITION TO TURBULENT BOUNDARY LAYERS ON THE CASING
+      ISHIFT = 2    ! AUTOMATICALLY MATCH THE GRIDS AT THE MIXING PLANES
+      NCHANGE= 1000 ! INCREASE THE SMOOTHING AND DAMPING FOR THE FIRST 1000 STEPS
+      IF_CUSP= 0    ! DO NOT GENERATE A CUSP IN STAGEN
+      IF_CUSP_OUT = 1 ! ASK MULTALL TO GENERATE THE CUSP
+      ICUSP  = 0    ! SURFACE WITH WHICH ANY CUSP IS ALIGNED
+      LCUSP  = 3    ! NUMBER OF CELLS ON THE CUSP
+      LCUSPUP= 0    ! START THE CUSP LCUSPUP CELLS UPSTREAM OF THE TRAILING EDGE
+      IFANGLES     = 0  !  DO NOT INPUT THE GRID ANGLES UPSTREAM AND DOWNSTREAM OF THE BLADE
+      NEXTRAP_LE   = 10 !  NUMBER OF POINTS USED TO EXTRAPOLATE GRID AT LEADING EDGE
+      NEXTRAP_TE   = 10 !  NUMBER OF POINTS USED TO EXTRAPOLATE GRID AT TRAILING EDGE
+      IF_DESIGN    = 0  !  DO NOT MANIPULATE THE INPUT BLADE GEOMETRY
+      IF_RESTAGGER = 0  !  DO NOT RESTAGGER THE INPUT BLADE GEOMETRY
+      IF_LEAN      = 0  !  DO NOT LEAN THE INPUT BLADE GEOMETRY.
+C
+C   SET THE GAS PROPERTIES
+C      CP      = 1005. ! SPECIFIC HEAT CAPACITY FOIR AIR
+C      GA      = 1.4   ! SPECIFIC HEAT RATIO FOR AIR  
+C
+C    SET THE CFL NUMBER, SMOOTHING, DAMPING, ETC.
+C
+      CFL     = 0.4   !  THE CFL NUMBER
+      SFT     = 0.005 !  SMOOTHING FACTOR ON THE PITCHWISE (I) AND SPANWISE (K) DIRECTIONS
+      SFX     = 0.005 !  SMOTHING FACTOR IN THE STREAMWISE (J) DIRECTION
+      FAC_4TH = 0.8   !  PROPORTION OF 4th ORDER SMOOTHING
+      MACHLIM = 2.0   !  LIMITING MACH NUBER
+      DAMP    = 10.   !  DAMPING FACTOR FOR NEGATIVE FEEDBACK
+      FBLK1   = 0.4   !  SAFETY FACTOR ON THE FIRST MULTIGRID LEVEL
+      FBLK2   = 0.2   !  SAFETY FACTOR ON THE SECOND MULTIGRID LEVEL
+      FBLK3   = 0.1   !  SAFETY FACTOR ON THE THIRD MULTIGRID LEVEL
+      SFEX    = 0.0   !  EXIT FLOW SMOOTHING FACTOR
+      CLIM    = 0.001 !  CONVERGENCE LIMIT
+      RFIN    = 0.50  !  RELAXATION FACTOR ON INLET FLOW CHANGES
+      RFMIX   = 0.025 !  RELAXATION FACTOR ON MIXING PLANE CHNGES
+      FSMTHB  = 1.0   !  MULTIPLYING FACTOR ON SMOOTHING AT MIXING PLANES
+      FEXTRAP = 0.80  !  FLUX EXTRAPOLATION FACTOR AT MIXING PLANES
+      FANGLE  = 0.80  !  ANGLE EXTRAPOLATION FACTOR AT MIXING PLANES
+C
+C   SET THE VISCOUS FACTORS
+C
+C   FOR ALL THE VISCOUS MODELS
+      FSTURB  = 1.0         ! FREE STREAM TURBULENT VISCOSITY/LAMINAR VISCOSITY
+      TURBVIS_DAMP = 0.5    ! REDUCTION OF TURBULENT VISCOSITY ACROSS A MIXING PLANE
+      TURBVIS_LIM  = 3000.0 ! LIMIT ON TURBULENT VISCOSITY/ LAMINAR VISCOSITY
+      REYNO   = 800000.     ! REYNOLDS NUMBER BASED ON AXIAL CHORD AND EXIT VELOCITY OF FIRST ROW
+      PRANDTL = 1.0         ! PRANDTL NUMBER
+      RF_VIS  = 0.5         ! RELAXATION FACTOR ON CHANGES IN VISCOUS FORCES
+      FTRANS  = 0.0001      ! BOUNDARY LAYER TRANSITION FACTOR, 
+      YPLUSWALL = 0.0       ! SKIN FRICTION BASED ON INPUT YPLUS
+      IF(IM.EQ.2) YPLUSWALL = 20. ! USE THE YPLUS WALL FUNCTION IF A THROUGHFLOW CALCULATION.
+      YPLAM   = 5.0         ! START OF BUFFER REGION IN BOUNDARY LAYER
+      YPTURB  = 25.0        ! END OF BUFFER REGION IN BOUNDARY LAYER
+      FACMIXUP = 2.0        ! INCREASE IN TURBULENT VISCOSITY ON THE FIRST TIME STEP.
+      NMIXUP   = 1000       ! NUMBER OF STEPS OVER WHICH THE TURBULENT VISCOSITY IS GRADUALLY REDUCED.
+C
+C  INPUT DATA FOR THE FOR VISCOUS MODELS
+C
+C     IF ILOS = 10
+      FRACPB  = 0.05       !  MIXING LENGTH LIMIT ON THE BLADE SURFACES
+      FRACPW  = 0.05        !  MIXING LENGTH LIMIT DOWNSTREAM OF THE BLADES
+      FRACPUP = 0.03        !  MIXING LENGTH LIMIT UPSTREAM OF THE LEADING EDGE
+C     IF ILOS = 100
+      FRACPIN = 0.02        !  MIXING LENGTH LIMIT AT THE UPSTREAM BOUNDARY
+      FRACPLE = 0.03        !  MIXING LENGTH LIMIT AT THE LEADING EDGE
+      FRACPTE = 0.03        !  MIXING LENGTH LIMIT AT THE TRAILING EDGE
+      FRACPDWN= 0.04        !  MIXING LENGTH AT THE DOWNSTREAM BOUNDARY
+C  FOR THE S_A MODEL, ILOS = 200
+      FAC_STMIX = 0.0       ! FACTOR FORCING THE TURBULENT VISCOSITY TOWARDS THE MIXING LENGTH VALUE
+      FAC_ST0   = 1.0       ! SCALING FACTOR ON THE FIRST SOURCE TERM IN THE S-A MODEL
+      FAC_ST1   = 1.0       ! SCALING FACTOR ON THE SECOND SOURCE TERM IN THE S-A MODEL
+      FAC_ST2   = 1.0       ! SCALING FACTOR ON THE THIRD SOURCE TERM IN THE S-A MODEL
+      FAC_ST3   = 1.0       ! SCALING FACTOR ON THE FOURTH SOURCE TERM IN THE S-A MODEL
+      FAC_SFVIS = 2.0       ! FACTOR INCREASING THE SMOOTHING FOR THE TURBULENT VISCOSITY
+      FAC_VORT  = 0.0       ! FACTOR INCREASING TURBULENT VISCOSITY DUE TO STREAMWISE VORTICITY.
+      FAC_PGRAD = 0.0       ! FACTOR INCREASING TURBULENT VISCOSITY DUE TO PRESSURE GRADIENT.
+C 
+      ENDIF
+C
+C     END OF DEFAULTS
+C********************************************************************************
+C********************************************************************************
+C
+C      INPUT THE NUMBER OF BLADE ROWS IN THE MACHINE
+C      AND THE NUMBER OF SECTIONS ON WHICH THE BLADE DATA IS TO BE INPUT
+C
+      READ(7,*)  NROWS,NOSECT
+      WRITE(8,*) NROWS,NOSECT
+C 
+      NSECT_Q3D = 0
+      IF(KM.EQ.2) THEN
+      WRITE(6,*)' QUASI-3D CALCULATION ON ONE BLADE SECTION SPECIFIED'
+      WRITE(6,*)' THERE ARE ', NOSECT, 'SECTIONS BEING GENERATED '
+      WRITE(6,*)' INPUT THE NUMBER OF THE SECTION YOU WANT TO CALCULATE'
+      READ(5,*)   NSECT_Q3D
+      END IF
+C
+C      READ IN THE SCALING FACTOR "FAC" WHICH CAN BE USED TO SCALE
+C      ALL THE INPUT COORDINATES.
+C
+      READ(7,*) FAC_SCALE
+C 
+C
+C********************************************************************************
+C******************************************************************************** 
+C   WRITE OUT INITIAL DATA FOR OLD_READIN
+C 
+      WRITE(4,*) ('   3D DATASET FOR MULTALL, GENERATED BY STAGEN  ') 
+      WRITE(4,1705)IM,   0,KM,   0,NMAX,   0,   0,NOSECT,NROWS,
+     & IFMIX,ISHIFT,KM,NEXTRAP_LE,NEXTRAP_TE,NCHANGE
+C
+      WRITE(4,1705) IN_VTAN,INPUT,IN_VR,ITIMST,ISMTH,IPOUT,
+     & IN_FLOW,ILOS,NLOS,IF_RESTART,IOUTST,IBOUND
+C
+      WRITE(4,1705) IR,JR,KR,IRBB,JRBB,KRBB,NSBUP,NSBON,NSBDN 
+C
+C*****************************************************************************
+C******************************************************************************
+C******************************************************************************
+C     START TO WRITE OUT THE DATA IN NEW_READIN FORMAT
+C
+      HEADING = ' DATA SET FOR "multall" . GENERATED BY "stagen" .'
+      WRITE(10,1650)  HEADING
+C
+      WRITE(10,*)  '   CP   and   GAMMA '
+      WRITE(10,1717)   CP, GA
+C
+      IF(CP.LT.0.0) THEN
+            WRITE(10,1700) CP1, CP2, CP3, TREF, RGAS
+      END IF
+C
+      WRITE(10,*)  '      ITIMST '
+      WRITE(10,1703) ITIMST
+      IF(ITIMST.EQ.4) WRITE(10,1706) F1, F2EFF, F3 , RSMTH, NRSMTH
+      IF(ITIMST.EQ.5) WRITE(10,1700)VSOUND, RF_PTRU, RF_VSOUND, VS_VMAX
+      IF(ITIMST.EQ.6) WRITE(10,1700)VSOUND, RF_PTRU, RF_VSOUND, VS_VMAX,
+     &                DENSTY
+C
+      WRITE(10,*)  '    CFL,    DAMP,    MACHLIM,    F_PDOWN '
+      WRITE(10,1700) CFL, DAMP, MACHLIM, F_PDOWN
+C
+      WRITE(10,*)   ' IF_RESTART '
+      WRITE(10,1703)  IF_RESTART
+C
+      WRITE(10,*)  ' NSTEPS_MAX, CONLIM '
+      WRITE(10,1707) NMAX, CLIM
+C
+      WRITE(10,*)  '  SFX,      SFT,      FAC_4TH,     NCHANGE '
+      WRITE(10,1708) SFX,SFT,FAC_4TH,NCHANGE
+C
+      WRITE(10,*)   '      NUMBER OF BLADE ROWS '
+      WRITE(10,1703)  NROWS
+C
+      WRITE(10,*) '       IM        KM '
+      WRITE(10,1703) IM, KM
+C
+      WRITE(10,*)   ' FP(I),I=1,IMM1 '
+      WRITE(10,1700) (FP(I),I=1,IMM1)
+C
+      WRITE(10,*)   ' FR(K),K=1,KMM1 '
+      WRITE(10,1700) (FR(K),K=1,KMM1)
+C
+      WRITE(10,*) '       IR        JR        KR        IRBB      JRBB  
+     &    KRBB '
+      WRITE(10,1703) IR,JR,KR,IRBB,JRBB,KRBB
+C
+      WRITE(10,*)  '  FBLK1,     FBLK2,     FBLK3  '
+      WRITE(10,1700) FBLK1,FBLK2,FBLK3
+C
+      WRITE(10,*)  '      IFMIX '
+      WRITE(10,1703) IFMIX
+C
+      WRITE(10,*)  '  RFMIX,    FEXTRAP,   FSMTHB,    FANGLE '
+      WRITE(10,1700) RFMIX, FEXTRAP, FSMTHB,  FANGLE
+C
+      WRITE(10,*)  '     IFCOOL    IFBLEED    IF_ROUGH '
+      WRITE(10,1703) IFCOOL, IFBLEED, IF_ROUGH
+C
+      NSECS_IN = NOSECT
+      IF(KM.EQ.2) NSECS_IN = 1
+      WRITE(10,*)  '      NSECS_IN '
+      WRITE(10,1703)      NSECS_IN
+C
+      WRITE(10,*)  
+     &'      IN_PRESS  IN_VTAN   IN_VR    IN_FLOW  IF_REPEAT  RFIN '
+      WRITE(10,1709) IN_PRESS, IN_VTAN, IN_VR, IN_FLOW, IF_REPEAT, RFIN
+C
+      WRITE(10,*)  ' IPOUT  SFEXIT  NSFEXIT '
+      WRITE(10,1713) IPOUT, SFEXIT, NSFEXIT
+C
+      WRITE(10,*)  ' PLATE_LOSS  THROTTLE_EXIT '
+      WRITE(10,1700) PLATE_LOSS, THROTTLE_EXIT
+C
+      IF(THROTTLE_EXIT.GT.0.001) THEN
+           WRITE(10,*)   ' THROTTLE_PRES, THROTTLE_MAS, RFTHROTL'
+           WRITE(10,1700)  THROTTLE_PRES, THROTTLE_MAS, RFTHROTL
+      END IF
+C
+      IF(IN_FLOW.NE.0) THEN
+           WRITE(10,*)      'FLOWIN, RFLOW  '
+           WRITE(10,1700)    FLOWIN, RFLOW
+      END IF
+C
+      IF(IF_REPEAT.NE.0) THEN
+           WRITE(10,*)   ' NINMOD, RFINBC '
+           WRITE(10,1707)  NINMOD, RFINBC
+      END IF
+C
+      WRITE(10,*)  '       ILOS      NLOS      IBOUND '
+      WRITE(10,1703) ILOS, NLOS, IBOUND
+C
+      IF(ILOS.NE.0) THEN
+      WRITE(10,*)  '  REYNO,     RF_VIS,   FTRANS, TURBVIS_LIM, PRANDTL,  
+     & YPLUSWALL'
+      WRITE(10,1702) REYNO,RF_VIS,FTRANS,TURBVIS_LIM,PRANDTL,YPLUSWALL
+      END IF
+C
+      IF(ILOS.GE.200) THEN
+      WRITE(10,*)' FAC_STMIX,FAC_ST0,FAC_ST1,FAC_ST2,FAC_ST3,FAC_SFVIS,
+     & FAC_VORT, FAC_PGRAD'
+      WRITE(10,1700) FAC_STMIX, FAC_ST0, FAC_ST1, FAC_ST2, FAC_ST3,
+     &               FAC_SFVIS, FAC_VORT, FAC_PGRAD
+      END IF
+C
+      WRITE(10,* ) '  YPLAM      YPTURB '
+      WRITE(10,1700) YPLAM,YPTURB
+C
+      IF(IM.EQ.2) THEN
+      WRITE(10,*) ' DATA FOR A THROUGHFLOW CALCULATION '
+      WRITE(10,*)  1.0,  0.1,   2
+      END IF 
+C
+      WRITE(10,*)  '     ISHIFT    NEXTRAP_LE  NEXTRAP_TE '
+      WRITE(10,1703) ISHIFT, NEXTRAP_LE, NEXTRAP_TE
+C
+      DO NR = 1,NROWS
+          NSTG(NR) = (NR+1)/2
+      END DO
+C
+      WRITE(10,*)  ' (NSTG(N),N=1,NROWS) '
+      WRITE(10,1703) (NSTG(N),N=1,NROWS)
+C
+      WRITE(10,*)   ' 5  TIME STEPS FOR PRINTOUT ' 
+      WRITE(10,1703) (NMAX,N=1,5)
+      WRITE(10,*) ' MARKER FOR VARIABLES TO BE SENT TO THE OUTPUT FILE.'
+      WRITE(10,1716) (0,I=1,20)
+      WRITE(10,*) ' STREAM SURFACES ON WHICH RESULTS ARE TO BE SENT TO 
+     & THE OUTPUT FILE '      
+      WRITE(10,1716) (0,K=1,KM) 
+C
+C
+C******************************************************************************
+C******************************************************************************
+C     START THE LOOP OVER ALL BLADE ROWS
+C******************************************************************************
+C******************************************************************************
+C
+      NSHROUD = 0
+C
+      DO 9000 NROW = 1,NROWS
+C
+C      READ IN THE TITLE OF THE BLADE ROW
+C
+      READ(7,1650)  dummy line
+      READ(7,1650)  ROWTIT
+      READ(7,1650)  dummy line
+C
+      WRITE(4,1650) ROWTIT
+ 1650 FORMAT(72A)
+C
+C     READ IN THE NUMBERS OF GRID POINTS REQUIRED UPSTREAM, ON AND 
+C     DOWNSTREAM OF THE BLADE. TYPICALLY  20,80,20  . 
+C
+      READ(7,*)  NINTUP,NINTON,NINTDN 
+      WRITE(8,*) NINTUP,NINTON,NINTDN
+C 
+      NPON = NINTON + 1 
+      NPUP = NINTUP 
+      NPDN = NINTDN 
+      JM   = NPUP+NPON+NPDN     
+      JLE  = NPUP+1 
+      JTE  = NPUP+NPON 
+C
+C********************************************************************************
+C******************************************************************************** 
+C     READ A TABLE OF THE RELATIVE SPACING OF THE GRID LINES ON THE BLADE,
+C     RELSPCE(I),  AT FRACTIONS OF THE AXIAL CHORD GIVEN BY XFRAC(I). 
+C     END WITH  XFRAC(I) JUST GREATER THAN UNITY, EG 1.001 .
+C     THE VARAIATION OF  "RELSPCE"  WIRTH "XFRAC" SHOULD DE SMOOTH.
+C     TYPICALLY  ABOUT 5 POINTS SHOULD BE ENOUGH.
+C     NOTE THAT THESE ARE ONLY THE RELATIVE SPACINGS NOT THE ABSOLUTE ONES.
+C
+      IIN = 0
+C
+      WRITE(8,*) '  IIN     XIN       REL SPACING '
+   72 IIN = IIN+1
+      READ(7,*)       XFRAC(IIN),RELSPCE(IIN)
+      WRITE(8,88) IIN,XFRAC(IIN),RELSPCE(IIN)
+      IF(XFRAC(IIN).GT.0.999999) GO TO 71
+      GO TO 72
+C
+   71 CONTINUE
+C
+   88 FORMAT(I5,T10,2F10.5)
+C
+C      INTERPOLATE TO LOCATE THE AXIAL POSITION OF THE GRID POINTS ON THE BLADE.
+C
+      WRITE(8,*)
+      WRITE(8,*)'INTERPOLATED POSITIONS OF THE GRID POINTS ON THE BLADE'
+      WRITE(8,*)'AND THE RELATIVE SPACING OF THE POINTS '
+      WRITE(8,*)
+      DO 73 JJ = 1,NINTON
+      XX = FLOAT(JJ-1)/(NINTON-1)
+      CALL INTP(IIN,XFRAC,RELSPCE,XX,F(JJ))
+      WRITE(8,88) JJ,XX,F(JJ)
+   73 CONTINUE
+C 
+      SUM=0.0 
+      DO 5 I=1,NINTON 
+    5 SUM = SUM + F(I) 
+      DO 6 I=1,NINTON 
+    6 F(I) = F(I)/SUM 
+C 
+C     XGRIDON   ARE THE AXIAL POSITIONS OF THE GRID POINTS ON THE BLADE
+C     AS A FRACTION OF THE BLADE AXIAL CHORD.
+C
+      XGRIDON(1)=0.0
+      DO 7 I=1,NINTON 
+    7 XGRIDON(I+1) = XGRIDON(I) + F(I)
+C
+C******************************************************************************
+C********************************************************************************
+C      READ IN THE NUMBER OF BLADES IN THE BLADE ROW, THE ROTATIONAL SPEED
+C      AND THE UPSTREAM AND DOWNSTREAM PRESSURES FOR THIS ROW.
+C 
+      READ(7,*) NBLADE
+      READ(7,*) RPMROW,PUPROW,PLEROW,PTEROW,PDROW
+C  
+C
+C     READ IN THE TIP CLEARANCE AND HUB AND CASING ROTATION PARAMETERS.
+C
+      READ(7,*) KTIPS,KTIPE,JROTHS,JROTHE,JROTTS,JROTTE,FRACTIP,RPMHUB
+C
+      IF(KTIPS.GT.0) THEN
+C
+C    SET THE FACTOR TO THIN THE BLADE NEAR THE TIP AND TO SET ZERO THICKNESS IN THE TIP GAP.
+C    THIS WORKS FOR BOTH HUB AND TIP GAPS.
+C
+      DO 222 K=1,KM
+      TKMULT(K) = 1.0
+      IF(K.GE.KTIPS.AND.K.LE.KTIPE) TKMULT(K) = 0.0
+  222 CONTINUE
+      IF(KTIPS.NE.1)  TKMULT(KTIPS-1) = 0.5
+      IF(KTIPE.NE.KM) TKMULT(KTIPE+1) = 0.5
+      IF(KTIPS.NE.1)  TKMULT(KTIPS-2) = 0.9
+      IF(KTIPE.NE.KM) TKMULT(KTIPE+2) = 0.9
+
+      ENDIF
+C
+      IF(KTIPS.LT.0) NSHROUD = NSHROUD + 1
+C
+C********************************************************************************
+C********************************************************************************
+C      WRITE THE INTEGER CONTROL NUMBERS TO FINAL DATA SET TO "STAGE_OLD.DAT" ON UNIT 4.
+C
+      WRITE(4,1705) JM,JLE,JTE,NBLADE,KTIPS,KTIPE,JROTHS,JROTHE,
+     & JROTTS,JROTTE,NEWGRID,JTRANS,JTRANP,JTRANH,JTRANT,IF_CUSP
+C
+C    WRITE THE RPM, PRESSURES AND TIP GAP FOR THE CURRENT BLADE ROW TO "STAGE_OLD.DAT"
+      WRITE(4,1605) RPMROW,PUPROW,PLEROW,PTEROW,PDROW,FRACTIP,RPMHUB
+ 1605 FORMAT(F10.1,4F10.1,F10.5,F10.1)
+C
+C     WRITE THE TIP THINNING FACTOR FOR THE CURRENT BLADE ROW TO "STAGE_OLD.DAT"
+      IF(KTIPS.GT.0) THEN
+      WRITE(4,1700) (TKMULT(K),K=1,KM)
+      ENDIF
+C
+C 
+C********************************************************************************
+C******************************************************************************
+C   WRITE TO BLADE ROW DATA TO THE OUTPUT FILE  "STAGE_NEW.DAT"  ON UNIT 10.
+C********************************************************************************
+C******************************************************************************
+
+      WRITE(10,*)
+     &'***************************************************************'
+      WRITE(10,*)
+     &'************STARTING THE INPUT FOR EACH BLADE ROW**************'
+C
+      WRITE(10,1650) ROWTIT
+      WRITE(10,*)  '   NUMBER OF BLADES IN ROW '
+      WRITE(10,1703) NBLADE
+C
+      WRITE(10,*) '       JM        JLE       JTE '
+      WRITE(10,1703) JM,  JLE,  JTE
+C
+      WRITE(10,*)   '     KTIPSTART  KTIPEND '
+      WRITE(10,1703)      KTIPS, KTIPE
+      IF(KTIPS.GT.0) THEN
+           WRITE(10,*)  ' FRACTIP1, FRACTIP2'
+           WRITE(10,1700) FRACTIP,  FRACTIP
+           WRITE(10,*)  ' BLADE TIP THINNING FACTORS'
+           WRITE(10,1700) (TKMULT(K),K=1,KM)
+      END IF
+C
+      WRITE(10,*)  '      BOUNDARY LAYER TRANSITION POINTS '
+      WRITE(10,1703) JTRANS,JTRANP,JTRANH,JTRANT
+C
+      WRITE(10,*) ' SET NEWGRID= 1 TO GENERATE A NEW GRID WITH DIFFERENT
+     & "J" POINTS AND SPACINGS.'
+      WRITE(10,1703) 0
+C
+      WRITE(10,*)  '  RPMROW,    RPMHUB '
+      WRITE(10,1701)  RPMROW,    RPMHUB
+C
+      WRITE(10,*)  '      JROTHS    JROTHE    JROTTS    JROTTE '
+      WRITE(10,1703)      JROTHS,   JROTHE,   JROTTS,   JROTTE
+C
+      WRITE(10,*)  '  PUPROW    PLEROW   PTEROW    PDROW '
+      WRITE(10,1701)  PUPROW,   PLEROW,  PTEROW,   PDROW
+C
+      WRITE(10,*)  '     NSECS_ROW   INSURF  '
+      NSECS_ROW = NOSECT
+      IF(KM.EQ.2)    NSECS_ROW = 1
+      WRITE(10,1703) NSECS_ROW, 0
+C
+      WRITE(10,*)   ' IF_CUSP_OUT   IFANGLES '
+      WRITE(10,1703)  IF_CUSP_OUT,  IFANGLES
+      IF(IF_CUSP_OUT.EQ.1) WRITE(10,1703)   ICUSP, LCUSP, LCUSPUP
+      IF(IF_CUSP_OUT.EQ.2) WRITE(10,1714  ) 2, 2, 3, 0.01, 0.99
+C
+C********************************************************************************
+C********************************************************************************
+C 
+C     START THE DO LOOP OVER THE NUMBER OF BLADE SECTIONS TO BE INPUT.
+C     THE SECTIONS ARE INPUT AS IF ON A CYLINDRICAL SURFACE, IE AT CONSTANT
+C     RADIUS AND ARE LATER TRANSFORMED TO A STREAM SURFACE WITH VARIABLE RADIUS.
+C
+C********************************************************************************
+C********************************************************************************
+C
+      DO 10000 NSECT = 1,NOSECT
+C 
+C      INPUT A TITLE FOR THIS BLADE SECTION  eg  ' HUB SECTION ' .
+C      THIS IS NOT USED BUT HELPS TO EDIT THE DATA FILE.
+C
+      READ(7,1650)  dummy line
+      READ(7,1650)  LABEL
+      READ(7,1650)  dummy line
+C
+      WRITE(6,*)'******************************************************'
+      WRITE(6,*)'******************************************************'
+      WRITE(6,*)
+      WRITE(6,1650) ROWTIT
+      WRITE(6,*)
+      WRITE(6,*)'******************************************************'
+      WRITE(6,*)'******************************************************'
+      WRITE(6,*)
+      WRITE(6,998)  NROW,NSECT
+  998 FORMAT( 'ROW NUMBER ', I5,' SECTION NUMBER ',I5)
+      WRITE(6,*)
+      WRITE(6,1650) LABEL
+      WRITE(6,*) ' '
+C
+      IF(KM.EQ.2.AND.NSECT.NE.NSECT_Q3D) GO TO 775
+C
+      WRITE(10,*)
+     &'***************************************************************'
+      WRITE(10,*) ' ROW NUMBER', NROW, ' SECTION NUMBER ',NSECT
+      WRITE(10,*) IF_DESIGN,IF_RESTAGGER,IF_LEAN,  ' IF_DESIGN etc '
+C
+  775 CONTINUE
+C
+C
+C********************************************************************************
+C********************************************************************************
+C      READ IN THE INDICATOR FOR THE TYPE OF BLADE SECTION INPUT. "INTYPE"
+C
+C      IF "INTYPE" IS ZERO THEN THE COORDINATES ARE READ IN DIRECTLY FROM THE FILE
+C      AND NO NEW SECTION IS GENERATED.
+C
+      READ(7,*)  INTYPE
+C
+C*****************************************************************************
+C*****************************************************************************
+C     READ IN EXISTING BLADE (X,Y) COORDINATES IF INTYPE = ZERO .
+C*****************************************************************************
+C*****************************************************************************
+      IF(INTYPE.EQ.0) THEN
+C
+      READ(7,*) NPOINTS, NXPTS, IFCLOCK, IF_REFLECT
+C
+C     READ IN BLADE X,Y COORDINATES AT 'npoints' POINTS
+C     "NXPTS"IS THE NUMBER OF POINT THAT WILL BE SET UP TO GENERATE THE BLADE, TYPICALLY 200 .
+C     IF THESE GO CLOCKWISE ROUND THE BLADE USE 'ifclock' = 0. IF ANTICLOCKWISE USE 'ifclock' = 1.
+C     IF YOU WISH TO INVERT THE BLADE SO ALL THE "Y" COORDINATES CHANGE SIGN, SET 'IF_REFLECT' =  1.
+C
+      XMAX = -1000000.0
+      XMIN =  1000000.0
+      FY = 1.0
+      IF(IF_REFLECT.NE.0) FY = -1.0
+C
+      DO 777 N = 1,NPOINTS
+      READ(7,*) XIN(N), YIN(N)
+      IF(XIN(N).GT.XMAX) XMAX = XIN(N)
+      IF(XIN(N).LT.XMIN) THEN
+           XMIN = XIN(N)
+           YLE  = YIN(N)
+      ENDIF
+ 777  CONTINUE
+C********************************************************************************
+C    REARRANGE THE POINTS AND SCALE THEM SO THE AXIAL CHORD IS UNITY.
+C
+      XDIFF = XMAX - XMIN
+      WRITE(8,*) ' REARRANGED AND SCALED INPUT BLADE SECTION '
+      WRITE(8,*) ' N     XSURF       YSURF '
+C
+      DO 776 N=1,NPOINTS
+      NN = N
+      IF(IFCLOCK.NE.0) NN = NPOINTS - N  + 1
+      XSURF(NN) = (XIN(N)-XMIN)/XDIFF
+      YSURF(NN) = FY*(YIN(N)-YLE)/XDIFF
+      WRITE(8,88)  NN,XSURF(NN),YSURF(NN)
+  776 CONTINUE
+C
+      DO 779 N=1,NPOINTS
+      XIN(N) = XSURF(N)
+      YIN(N) = YSURF(N)
+  779 CONTINUE
+C
+C  SET FTHICK = 1 AS IT IS NOT USED WHEN INTYPE = 0 .
+      DO 778 N  = 1,NSURF
+  778 FTHICK(N) = 1.0
+C
+      NIN = NPOINTS
+C
+C    EXISTING BLADE COORDINATE DATA INPUT IS NOW COMPLETE. JUMP TO 9999.
+C
+      GO TO 9999
+C
+C     END OF INTYPE = 0 BLADE SECTION INPUT.
+C
+      ENDIF
+C
+C*****************************************************************************
+C*****************************************************************************
+C*****************************************************************************
+C
+C      IF INTYPE = 1, 2  OR  3  GENERATE A NEW BLADE FROM A SPECIFIED
+C       CAMBER LINE SLOPE AND THICKNESS DISTRIBUTION
+CC****************************************************************************
+C*****************************************************************************
+C
+C     READ IN THE NUMBER OF POINTS (NPIN) AT WHICH THE CAMBER LINE SLOPE
+C     IS TO BE WILL BE SPECIFIED. TYPICALLY USE ABOUT 10 POINTS. THE FIRST POINT
+C     MUST BE AT THE LEADUNG EDGE, FRACX(1) = 0.0,  AND THE LAST POINT AT THE 
+C     TRAILING EDGE,  FRACX(NPIN) = 1.0  .
+C
+C     ALSO  "NXPTS" THE NUMBER OF POINTS TO BE USED TO GENERATE THE BLADE SURFACE
+C     TYPICALLY ABOUT 200.
+C
+C     AND NUMBER OF TIMES (NSMOOTH) THAT THE INPUT VALUES WILL BE SMOOTHED.
+C     TYPICALLY ABOUT 2
+C
+      READ(7,*)  NPIN, NXPTS, NSMOOTH
+C
+C********************************************************************************
+C********************************************************************************
+C
+C     READ IN THE FRACTION OF AXIAL CHORD, SLOPE and TANGENTIAL THICKNESS AT
+C     'NPIN' POINTS
+ 
+      DO 10  N = 1,NPIN
+C
+C     IF "INTYPE" = 1. SPECIFY THE CAMBER LINE SLOPE IN DEGREES .
+C
+      IF(INTYPE.EQ.1) READ(7,*)  FRACX(N), SLOPE(N)
+C
+C******************************************************************************
+C     IF "INTYPE" = 2. SPECIFY THE CAMBER LINE SLOPE AND THE BLADE TANGENTIAL
+C     THICKNESS ABOVE ("TKH") AND BELOW ("TKL") THE CAMBER LINE. THE THICKNESS DOES
+C     NOT INCLUDE THE LEADING EDGE AND TRAILING EDGE THICKNESSES WHICH SHOULD
+C     BE SET TO ZERO AT THIS STAGE. THEY ARE ADDED LATER.
+C
+      IF(INTYPE.EQ.2) READ(7,*)  FRACX(N), SLOPE(N), TKH(N), TKL(N)
+C
+C******************************************************************************
+C     CHANGE THE SLOPE FROM ANGLES TO TANGENT OF ANGLES
+      IF(INTYPE.EQ.1.OR.INTYPE.EQ.2) SLOPE(N) = TAN(SLOPE(N)*DEGRAD)
+C
+C
+C     IF "INTYPE" = 3.SPECIFY THE SURFACE SLOPES OF THE UPPER  ("SLPUP")
+C     AND LOWER ("SLPLOW") BLADE SURFACES.
+C******************************************************************************
+      IF(INTYPE.EQ.3) THEN
+		READ(7,*)   FRACX(N),SLPUP(N),SLPLOW(N)
+		SLPUP(N)  = TAN(SLPUP(N)*DEGRAD)
+		SLPLOW(N) = TAN(SLPLOW(N)*DEGRAD)
+      ENDIF
+C
+C******************************************************************************
+      IF(INTYPE.EQ.4) THEN
+C
+C    IF  "INTYPE" = 4, READ IN THE BLADE INLET AND OUTLET ANGLES
+C    AND THE RELATIVE CAMBER LINE CURVATURE AS A FRACTION OF AXIAL CHORD.
+C    THE MAGNITUDE OF THE CURVATURE DOES NOT MATTER ONLY THE RELATIVE VALUES ARE USED.
+C
+           IF(N.EQ.1) READ(7,*) SLOPE(1),SLOPE(NPIN)
+           IF(N.EQ.1) WRITE(6,*)'SLOPE1,SLOPENPIN',SLOPE(1),SLOPE(NPIN)
+           READ(7,*)  FRACX(N), CURV(N)
+           WRITE(6,*)  ' FRACX, CURV ', FRACX(N), CURV(N)
+C
+      END IF
+C******************************************************************************
+C
+   10 CONTINUE
+C
+C******************************************************************************
+C******************************************************************************
+C
+      IF(INTYPE.EQ.4) THEN
+C
+      DTAN_ANGL(1) = 0.0
+      DO N=2,NPIN
+      DTAN_ANGL(N) = DTAN_ANGL(N-1)
+     &             + 0.5*(CURV(N) + CURV(N-1))*(FRACX(N) - FRACX(N-1))
+      END DO
+C
+      DO N=1,NPIN
+      WRITE(6,*) 'N, FRACX,  DTAN_ANGL',N, FRACX(N), DTAN_ANGL(N)
+      END DO
+C  CONVERT ANGLES TO RADIANS
+      SLOPE(1)    = TAN(SLOPE(1)*DEGRAD)
+      SLOPE(NPIN) = TAN(SLOPE(NPIN)*DEGRAD)
+C
+      DSLOPE   =  SLOPE(NPIN) - SLOPE(1)
+      SLP1     =  SLOPE(1)
+      WRITE(6,*) ' SLOPE1, SLOPE(NPIN), DIFFERENCE= ',
+     &             SLOPE(1), SLOPE(NPIN), DSLOPE
+C
+      DO N=1,NPIN
+      FCURV    =  DTAN_ANGL(N)/DTAN_ANGL(NPIN)
+      TANGL    =  SLP1 + FCURV*DSLOPE
+      SLOPE(N) =  TANGL
+      SLOPE_DEG = ATAN(TANGL)
+      WRITE(6,*)' N, FRAC-AX-CHORD, CENTRE-LINE-ANGLE',
+     &            N, FRACX(N), SLOPE_DEG
+      END DO
+C
+      END IF 
+C******************************************************************************           
+C      SMOOTH THE CAMBER LINE SLOPE AND THICKNESSES IF "NSMOOTH" IS GREATER THAN ZERO.
+C
+      IF(NSMOOTH.EQ.0) GO TO 15
+C
+      SFAC = 0.25
+      IF(INTYPE.EQ.1.OR.INTYPE.EQ.2.OR.INTYPE.EQ.4)
+     &                CALL SMOOTH(NPIN,NSMOOTH,SFAC,FRACX,SLOPE)
+      IF(INTYPE.EQ.2) CALL SMOOTH(NPIN,NSMOOTH,SFAC,FRACX,TKH)
+      IF(INTYPE.EQ.2) CALL SMOOTH(NPIN,NSMOOTH,SFAC,FRACX,TKL)
+      IF(INTYPE.EQ.3) CALL SMOOTH(NPIN,NSMOOTH,SFAC,FRACX,SLPUP)
+      IF(INTYPE.EQ.3) CALL SMOOTH(NPIN,NSMOOTH,SFAC,FRACX,SLPLOW)
+C
+   15 CONTINUE
+C
+C******************************************************************************
+C******************************************************************************
+C      INTERPOLATE TO FIND THE CAMBER LINE SHAPE,  THICKNESS, ETC,
+C      AT  'NXPTS'  POINTS WITH AXIAL SPACING PROPORTIONAL TO  (1 - COS(THETA) )
+C      WHERE THETA VARIES LINEARLY WITH  (2*PI*FRACTIONAL GRID POINT NUMBER) .
+C
+      YIN(1)    = 0.0
+      XIN(1)    = 0.0
+      TKHIGH(1) = 0.0
+      TKLOW(1)  = 0.0
+      DYDX(1)   = SLOPE(1)
+      DYDXUP(1) = SLPUP(1)
+      DYDXLOW(1)= SLPLOW(1)
+      YUP(1)    = 0.0
+      YLOW(1)   = 0.0
+      TKIN(1)   = 0.0
+C
+      DO 16 N = 2,NXPTS
+      THETA   = (N-1)*PI/(NXPTS-1)
+      XIN(N)  = 0.5*(1.-COS(THETA))
+      DX      = XIN(N) - XIN(N-1)
+      IF(INTYPE.EQ.1.OR.INTYPE.EQ.2.OR.INTYPE.EQ.4)
+     &                  CALL INTP(NPIN,FRACX,SLOPE,XIN(N),DYDX(N))
+      IF(INTYPE.EQ.2)   CALL INTP(NPIN,FRACX,TKH,XIN(N),TKHIGH(N))
+      IF(INTYPE.EQ.2)   CALL INTP(NPIN,FRACX,TKL,XIN(N),TKLOW(N))
+C
+      IF(INTYPE.EQ.1.OR.INTYPE.EQ.4) THEN
+		   DY      = 0.5*(DYDX(N) + DYDX(N-1))*DX
+		   YIN(N)  = YIN(N-1) + DY
+      ENDIF
+C
+      IF(INTYPE.EQ.2) THEN
+		   DY      = 0.5*(DYDX(N) + DYDX(N-1))*DX
+		   YIN(N)  = YIN(N-1) + DY
+		   YUP(N)  = YIN(N) + TKHIGH(N)
+		   YLOW(N) = YIN(N) - TKLOW(N)
+		   TKIN(N) = YUP(N) - YLOW(N)
+      ENDIF
+C
+      IF(INTYPE.EQ.3)  THEN
+C
+	    CALL INTP(NPIN,FRACX,SLPUP,XIN(N),DYDXUP(N))
+	    DY        = 0.5*(DYDXUP(N) + DYDXUP(N-1))*DX
+	    YUP(N)    = YUP(N-1) + DY
+	    CALL INTP(NPIN,FRACX,SLPLOW,XIN(N),DYDXLOW(N))
+	    DY        = 0.5*(DYDXLOW(N) + DYDXLOW(N-1))*DX
+	    YLOW(N)   = YLOW(N-1) + DY
+      ENDIF
+C
+   16 CONTINUE
+C
+C     RESET THE CENTRELINE COORDINATES FOR "INTYPE" = 2 BECAUSE THE THICKNESS MAY HAVE
+C     BEEN DIFFERENT ABOVE AND BELOW THE ORIGINAL CENTRE LINE.
+C
+      IF(INTYPE.EQ.2) THEN
+      DO 567 N=1,NXPTS
+ 567  YIN(N) = 0.5*(YUP(N) + YLOW(N))
+      ENDIF
+C
+C********************************************************************************
+C********************************************************************************
+C     IF "INTYPE" = 2 or 3 THE BLADE CENTRELINE OR SURFACE COORDINATES ARE NOW SET
+C     AT  "NXPTS"  POINTS ALONG THE  AXIAL CHORD.
+C
+C     IF "INTYPE" = 1 ONLY THE BLADE CENTRE-LINE COORDINATES ARE NOW SET.
+C******************************************************************************
+C******************************************************************************
+C
+C    FOR "INTYPE" = 3 ROTATE THE BLADE SURFACES TO MAKE SURE THAT THEY CLOSE 
+C    AT THE TRALING EDGE. WRITE OUT THE SURFACE COORDINATES TO UNIT 8.
+C
+      IF(INTYPE.EQ.3)  THEN
+C
+      WRITE(8,*) ' POINTS GENERATED ON THE BLADE SURFACES USING THE
+     & METHOD OF SURFACE SLOPES INPUT '
+      WRITE(8,*) ' AFTER ROTATING THE SURFACES TO MAKE THE TRAILING EDGE
+     & CLOSE '
+      WRITE(8,*) ' XIN         YUP           YLOW            TKIN   '
+C
+C        ROTATE THE SURFACES TO MAKE THE TRAILING EDGE CLOSE
+C
+		DIFF    = YUP(NXPTS) - YLOW(NXPTS)
+		WRITE(6,*) ' BLADE FAILS TO CLOSE BY ', DIFF
+C
+      DO 870 N=1,NXPTS
+		DROT    = DIFF*XIN(N)
+		YUP(N)  = YUP(N)  - 0.5*DROT
+		YLOW(N) = YLOW(N) + 0.5*DROT
+		YIN(N)  = 0.5*(YUP(N) + YLOW(N))
+		TKIN(N) = YUP(N) - YLOW(N)
+		WRITE(8,99) XIN(N),YUP(N),YLOW(N),TKIN(N)
+  870 CONTINUE
+   99 FORMAT(4F10.5)
+C
+C CALL  "FIND_DYDX"   TO  FIND THE NEW CAMBER LINE SLOPE, DYDX.
+C
+	       CALL  FIND_DYDX(NXPTS,XIN,YIN,DYDX)
+C
+C    END OF INTYPE = 3  INPUT AND BLADE SURFACE COORDINATE GENERATION.
+      ENDIF
+C
+C******************************************************************************
+C******************************************************************************
+C      FOR INTYPE = 1,  2  OR  3. 
+C      FIND THE BLADE STAGGER ANGLE AND THE RATIO OF AXIAL CHORD TO TRUE CHORD.
+C
+	    STAGER = (YIN(NXPTS)-YIN(1))/(XIN(NXPTS)-XIN(1))
+	    CTCX   =  SQRT(STAGER*STAGER + 1)
+	    TRU_CHORD  =  CTCX
+C
+            WRITE(8,*)
+	    WRITE(8,*) ' BLADE TRUE CHORD:AXIAL CHORD RATIO = ', CTCX
+            WRITE(8,*)
+C
+C*****************************************************************************
+C*****************************************************************************
+C*****************************************************************************
+C                      NEXT FOR INTYPE = 1, 2  OR 3. 
+C
+C      READ IN THE LEADING EDGE THICKNESS,TRAILING EDGE THICKNESS THE
+C      MAXIMUM THICKNESS AND THE POINT OF MAXIMUM THICKNESS.
+C
+C      ALSO INPUT THE FRACTIONS OF AXIAL CHORD OVER WHICH THE LEADING EDGE 
+C      AND TRAILING EDGE WILL BE ROUNDED OFF, 'XMODLE' AND 'XMODTE'   
+C
+C      'TK_TYP' IS AN EXPONENT THAT DETERMINES THE SHAPE OF THE THICKNESS
+C       DISTRIBUTION. THE USUAL AND DEFAULT VALUE IS 'TK_TYP'=2 .
+C
+C                  'TK_TYP'= 1 GIVES A WEDGE TYPE OF DISTRIBUTION,
+C                  'TK_TYP'= 2 GIVES A PARABOLIC TYPE, THIS IS MOST USUAL.
+C                  'TK_TYP'= 4 GIVES A ALMOST CONSTANT THICKNESS WITH ROUNDED
+C                             LEADING AND TRAILING EDGES, ETC.
+C
+      READ(7,*) TKLE,TKTE,TKMAX,XTMAX,XMODLE,XMODTE,TK_TYP 
+C
+      WRITE(8,*)
+      WRITE(8,*) '   TKLE      TKTE      TKMAX     XTMAX     XMODLE    
+     &XMODTE    TK_TYP '
+      WRITE(8,89)  TKLE, TKTE, TKMAX, XTMAX, XMODLE, XMODTE, TK_TYP
+      WRITE(8,*)
+   89 FORMAT(7F10.4)
+C
+      IF(TK_TYP.LT.0.001) TK_TYP = 2.
+C
+C********************************************************************************
+C********************************************************************************
+C     NEXT INPUT "FCHORD" ETC TO DETERMINE THE TYPE OF THICKNESS DISTRIBUTION.
+C
+C     IF FCHORD = 1 THE THICKNESSES INPUT ABOVE ARE FRACTIONS OF THE TRUE CHORD.
+C     IF FCHORD = 0 THE THICKNESSES INPUT ABOVE ARE FRACTIONS OF THE AXIAL CHORD.
+C     IF FPERP  = 1 THE LE AND TE THICKNESSES INPUT ABOVE ARE THE PERPENDICULAR ONES.
+C     IF FPERP  = 0 THE LE AND TE THICKNESSES INPUT ABOVE ARE THE TANGENTIAL ONES.
+C     FPERP     = 0 IS GENERALLY PREFERRED TO AVOID ANY POSSIBILITY OF THE CENTRE LINE
+C                   NORMALS CROSSING .
+C     IF FTKSCALE = 1 THE THICKNESSES INPUT ABOVE ARE SCALED TO MAKE THE MAXIMUM 
+C                   THICKNESS = TKMAX AS INPUT ABOVE. IF FTKSCALE = 0 THE THICKNESSES
+C                   ARE NOT SCALED.
+C
+C
+      READ(7,*) FCHORD, FPERP, FTKSCALE
+C
+      WRITE(8,*)
+      WRITE(8,*)'FCHORD= ',FCHORD,' FPERP= ',FPERP,'FTKSCALE= ',FTKSCALE
+      WRITE(8,*)
+C
+C     SCALE THE THICKNESSES TO BE FRACTIONS OF THE TRUE OR AXIAL CHORD DEPENDING ON  "FCHORD".
+C
+      TKLE  =  TKLE*(1.0 -FCHORD) +  TKLE*TRU_CHORD*FCHORD
+      TKTE  =  TKTE*(1.0 -FCHORD) +  TKTE*TRU_CHORD*FCHORD
+      TKMAX = TKMAX*(1.0 -FCHORD) +  TKMAX*TRU_CHORD*FCHORD
+C   
+C     " LE_EXP" IS AN EXPONENT USED IN GENERATING THE LEADING EDGE SHAPE.
+C     " LE_EXP" = 3 IS USUAL AS IT GIVES AN ELLIPTIC TYPE OF LEADING EDGE.
+C
+      LE_EXP = 3
+C
+C*****************************************************************************C
+C*****************************************************************************C
+C
+      IF(INTYPE.EQ.1.OR.INTYPE.EQ.4) THEN
+C
+C    FORM AND ADD THE THICKNESS DISTRIBUTION TO THE CENTRE  LINE IF INTYPE = 1.
+C    "POWER"  IS USED TO TRANSFORM THE  X  COORDINATES SO THAT THE POSITION OF 
+C    MAXIMUM THICKNESS CAN BE SET.
+C
+	    POWER = LOG(0.5)/LOG(XTMAX)
+	    XMAX  = XIN(NXPTS)
+C
+C********************************************************************************
+C********************************************************************************
+C     THE THICKNESS CAN BE FIRST THINNED BY THE FACTOR 'FACTK'
+C     AND THEN SCALED BACK TO THE REQUIRED THICKNESS.
+C     THIS MAY BE USED TO PREVENT THE GENERATORS CROSSING OVER
+C     FOR VERY THICK BLADES.
+C
+C            ISSUE A WARNING IF THE BLADE IS THICK.
+C
+      FACTK  = 1.0 
+      IF(FPERP.GT.0.99.AND.(TKLE+TKMAX).GT.0.2)  THEN
+C
+      WRITE(6,666)
+  666 FORMAT(' THE BLADE IS VERY THICK AND YOU MIGHT HAVE A PROBLEM WITH
+     &',/,' THICKNESS GENERATORS PERPENDICULAR TO THE CAMBER LINE CROSSI
+     &NG OVER.',/,' THIS CAN BE AVOIDED BY FIRSTLY GENERATING A THIN BLA
+     &DE AND THEN SCALING',/,' THE THICKNESS. THIS IS DONE BY SETTING
+     &  "factk"  TO A VALUE ABOUT 0.1',/)
+C
+      WRITE(6,*)  ' INPUT A VALUE FOR  factk, TYPICALLY  0.1 '
+      READ(5,*)     FACTK
+C
+      ENDIF
+C
+C********************************************************************************
+C********************************************************************************
+C           FORM THE BLADE THICKNESS DISTRIBUTION.
+C
+	    TKLIM = 0.00001*TKMAX
+      DO 26 N=1,NXPTS
+	    FAXCRD    = XIN(N)/XMAX
+	    XIN(N)    = FAXCRD
+	    XTRANS    = FAXCRD**POWER
+	    TKLIN     = TKLE   +  XIN(N)*(TKTE-TKLE)
+            TKADD     = TKMAX  - (TKLE + XTMAX*(TKTE-TKLE))
+	    TKIN(N)   = TKLIN  +
+     &      TKADD*(1.0 -ABS(XTRANS-0.5)**TK_TYP/(0.5**TK_TYP))
+   26 CONTINUE
+C
+C      SET FTHICK(N), WHICH IS USED IF THE BLADE IS VERY THICK, AND NON-
+C      DIMENSIONALISE THE CENTELINE Y COORDINATE AND THE THICKNESSES BY XMAX.
+C
+	    TKLIM     = TKMAX*1.0E-5
+      DO 27 N   = 1,NXPTS
+ 	    FTHICK(N) = FACTK            
+	    TKIN(N)   = TKIN(N)*FTHICK(N)
+	    TKIN(N)   = TKIN(N)/XMAX
+	    IF(TKIN(N).LT.TKLIM) TKIN(N) = TKLIM
+	    YIN(N)    = YIN(N)/XMAX
+   27 CONTINUE
+C
+      WRITE(8,*) 
+      WRITE(8,*) ' CENTRELINE COORDINATES AND THICKNESS FOR INTYPE = 1'
+      WRITE(8,*)
+      WRITE(8,*) '   XIN        YIN       TKIN '
+      DO 29 N=1,NXPTS
+   29 WRITE(8,97) XIN(N),YIN(N),TKIN(N)
+   97 FORMAT(3F10.5)
+C
+C****************************************************************************************      
+C*****************************************************************************************
+C     NOW ADD THE BLADE THICKNESS TO THE CAMBER LINE FOR INTYPE = 1.
+C     CORRESPONDING POINTS ON THE UPPER AND LOWER BLADE SURFACES NEED NOT YET HAVE
+C     THE SAME AXIAL COORDINATE
+C*****************************************************************************************
+C*****************************************************************************************
+C
+C    IF FPERP = 1  THE INPUT THICKNESS WAS PERPENDICULAR.
+C    IF FPERP = 0  THE INPUT THICKNESS WAS TANGENTIAL.
+C
+      FPERP1  = 1.0 - FPERP
+      DO 30 N = 1,NXPTS
+      SLOPECENT = ATAN(DYDX(N))
+      DPERP     = 0.5*TKIN(N)*COS(SLOPECENT)
+      YUP(N)    = YIN(N) + FPERP*DPERP*COS(SLOPECENT)
+     &                   + FPERP1*0.5*TKIN(N)
+      YLOW(N)   = YIN(N) - FPERP*DPERP*COS(SLOPECENT)
+     &                   - FPERP1*0.5*TKIN(N)
+      XUP(N)    = XIN(N) - FPERP*DPERP*SIN(SLOPECENT) + 0.00001
+      XLOW(N)   = XIN(N) + FPERP*DPERP*SIN(SLOPECENT) - 0.00001
+   30 CONTINUE
+C
+C     WRITE THE CURRENT BLADE COORDINATES TO UNIT 8
+C
+      WRITE(8,*)
+      WRITE(8,*)' BLADE SURFACE COORDINATES GENERATED USING INTYPE = 1'
+      WRITE(8,*)
+      WRITE(8,*) ' XUP          YUP       XLOW      YLOW '
+      DO 321 N = 1,NXPTS   
+      WRITE(8,99) XUP(N),YUP(N),XLOW(N),YLOW(N) 
+  321 CONTINUE
+C
+C     END OF  INTYPE = 1 BLADE GENERATION.
+      ENDIF
+C
+C*********************************************************************************
+C*********************************************************************************
+C     NEXT FORM THE BLADE SURFACE COORDINATES FOR INTYPE = 2 OR 3 .
+C********************************************************************************
+C**********************************************************************************
+C
+      IF(INTYPE.EQ.2.OR.INTYPE.EQ.3) THEN
+C
+C
+C     ADD THE LE AND TE THICKNESSES AND SCALE THE THICKNESS TO TKMAX 
+C     IF INTYPE = 2 OR 3 AND FTKSCALE = 1.
+C     THESE ARE TANGENTIAL THICKNESSES FOR THESE TYPES OF INPUT.
+C
+	      TKMAXGEN = 0.0
+      DO 667 N=1,NXPTS
+	      FTHICK(N) = 1.0
+	      TKIN(N)   = (TKIN(N) + TKLE + XIN(N)*(TKTE - TKLE))
+	      IF(TKIN(N).GT.TKMAXGEN) TKMAXGEN = TKIN(N)
+  667 CONTINUE
+C
+	      TKRAT = TKMAX/TKMAXGEN
+              TKRAT = (1. - FTKSCALE) + FTKSCALE*TKRAT
+	      WRITE(6,*) 'INTYPE =  2  OR 3, THICKNESS SCALED BY ',TKRAT
+C
+      DO 669 N=1,NXPTS
+	      TKIN(N)   = TKIN(N)*TKRAT
+  669 CONTINUE
+C
+C**********************************************************************************
+C**********************************************************************************
+C
+C     ADD THE TANGENTIAL THICKNESS ON TO THE CAMBER LINE
+C     TO FORM THE BLADE SUCTION AND PRESSURE SURFACES WHEN INTYPE = 2 OR 3. 
+C**********************************************************************************
+C**********************************************************************************
+C
+C     FIRST ADD THE TANGENTIAL THICKNESS WITHOUT YET THINNING THE LE AND TE.  
+C
+      WRITE(8,*) ' FROM INTYPE = 2 or 3 '
+      WRITE(8,*) ' SURFACE POINTS AT CONSTANT XIN VALUE '
+      WRITE(8,*) ' XIN          YUP           YLOW        TKIN '
+C
+      DO 3333 N=1,NXPTS
+      XUP(N)      = XIN(N)
+      XLOW(N)     = XIN(N)
+      YUP(N)      = YIN(N) + 0.5*TKIN(N)
+      YLOW(N)     = YIN(N) - 0.5*TKIN(N)
+      WRITE(8,99)   XIN(N),YUP(N),YLOW(N),TKIN(N)
+ 3333 CONTINUE
+C
+C
+C     FIND AND WRITE OUT THE MODIFIED SURFACE SLOPES THESE MAY DIFFER
+C     FROM THE INPUT VALUES DUE TO ROTATION AND SMOOTHING.
+C
+      CALL FIND_DYDX(NXPTS,XIN,YUP,DYDXUP)
+      CALL FIND_DYDX(NXPTS,XIN,YLOW,DYDXLOW)
+C
+      WRITE(8,*) ' FOR INTYPE = 2 or 3 '
+      WRITE(8,*) ' NEW SURFACE SLOPES AT THE ORIGINAL DATA INPUT
+     & POINTS '
+      WRITE(8,*) ' FRACX(N)  SNEWUP(N)  SNEWLOW(N) '
+C
+      DO 2222 N = 1,NPIN
+      ARG = FRACX(N)
+      IF(N.EQ.1) ARG = 0.01
+      IF(N.EQ.NPIN) ARG = 0.99
+      CALL LININT(NXPTS,XIN,DYDXUP,ARG,SNUP)
+      CALL LININT(NXPTS,XIN,DYDXLOW,ARG,SNLOW)
+      SNEWUP(N)  = ATAN(SNUP)/DEGRAD
+      SNEWLOW(N) = ATAN(SNLOW)/DEGRAD
+      WRITE(8,97) FRACX(N),SNEWUP(N),SNEWLOW(N)
+ 2222 CONTINUE
+      WRITE(8,*)
+C
+C
+C    END OF INTYPE = 2 or 3 BLADE THICKNESS ADDITION
+C
+      ENDIF
+C
+C**********************************************************************************
+C**********************************************************************************
+C      THE NEXT SECTION IS FOR BOTH CAMBER LINE AND SURFACE SLOPE INPUT.
+C      I.E.  INTYPE  = 1, 2 OR 3.
+C**********************************************************************************
+C**********************************************************************************
+C
+C      FIND THE FACTOR FACLETE(N) TO ADJUST THE LEADING AND TRAILING EDGES
+C      TO AN ELLIPTIC SHAPE
+C
+      XMAX   = XIN(NXPTS)
+C
+      WRITE(8,*)
+      DO 6626 N=1,NXPTS
+      FAXCRD = XIN(N)/XMAX
+      XIN(N) = FAXCRD
+      FACLETE(N) = 1.0
+C
+C      FIND THE LEADING EDGE THINNING FACTOR.
+C
+      IF(XMODLE.LT.0.0001) GO TO 28
+      XMLE       = FAXCRD/XMODLE
+      IF(XMLE.GT.1.0)     GO TO 28
+      XMLE       = ABS(XMLE -1.)
+      FACLETE(N) = SQRT(1.-XMLE**LE_EXP)
+      WRITE(8,93)  XIN(N),FACLETE(N)
+   28 CONTINUE
+   93 FORMAT( 'XIN,   MODIFIED LEADING EDGE THICKNESS',2F12.5)
+C
+C     FIND THE TRAILING EDGE THINNING FACTOR.
+C
+      IF(XMODTE.LT.0.001) GO TO 6626
+      XMTE       = (1.-FAXCRD)/XMODTE
+      IF(XMTE.GT.1.0) GO TO 6626
+      XMTE       = XMTE - 1.0
+      FACLETE(N) = FACLETE(N)*SQRT(1.-XMTE*XMTE)
+      WRITE(8,92) XIN(N),FACLETE(N)
+ 6626 CONTINUE
+   92 FORMAT(' XIN,   MODIFIED TRAILING EDGE THICKNESS',2F12.5)
+C
+      FACLETE(1)     = 0.5*FACLETE(2)
+      FACLETE(NXPTS) = 0.5*FACLETE(NXPTS-1)
+C
+C****************************************************************************************
+C     END OF FINDING THE LE AND TE ADJUSTMENT FACTORS.
+C****************************************************************************************
+C
+C**********************************************************************************
+C**********************************************************************************
+C    FIND THE NEAREST SURFACE POINTS TO EACH CENTRE LINE POINT.
+C    THESE ARE THEN USED TO THIN THE LEADING AND TRAILING EDGES.
+C
+      WRITE(8,*)
+      WRITE(8,*)' POINTS NEARLY PERPENDICULAR TO THE CENTRE LINE BEFORE
+     &THINNING '
+      WRITE(8,*) '       N        XUPP      YUPP        XLOW        YLOW
+     & '
+C
+      DO 3334 NC = 1,NXPTS
+	   NUP   = NC
+	   NLOW  = NXPTS + (NXPTS+1-NC)
+	   ALPHA = ATAN(DYDX(NC)) + 0.5*PI
+	   X0    = XIN(NC)
+	   Y0    = YIN(NC)
+      CALL INSECT(NXPTS,NC,XUP,YUP,X0,Y0,ALPHA,XINT,YINT)
+	    XSURFUP     = XINT
+	    YSURFUP     = YINT
+	    XUPP(NUP)   = XINT
+	    YUPP(NUP)   = YINT
+      CALL INSECT(NXPTS,NC,XLOW,YLOW,X0,Y0,ALPHA,XINT,YINT)
+	    XSURFLOW     = XINT
+	    YSURFLOW     = YINT
+	    XLOWW(NUP)   = XSURFLOW
+	    YLOWW(NUP)   = YINT
+C
+C      NOW THIN THE LEADING AND TRAILING EDGES
+C
+      XMID        = 0.5*(XSURFUP + XSURFLOW)
+      YMIDD       = 0.5*(YSURFUP + YSURFLOW)
+      XSPAN       = XSURFUP - XSURFLOW
+      YSPAN       = YSURFUP - YSURFLOW
+      XSURF(NUP)  = XMID  + 0.5*FACLETE(NC)*XSPAN
+      XSURF(NLOW) = XMID  - 0.5*FACLETE(NC)*XSPAN
+      YSURF(NUP)  = YMIDD + 0.5*FACLETE(NC)*YSPAN
+      YSURF(NLOW) = YMIDD - 0.5*FACLETE(NC)*YSPAN
+C
+      WRITE(8,96) NC,XUPP(NUP),YUPP(NUP),XLOWW(NUP),YLOWW(NUP)
+C
+ 3334 CONTINUE
+C
+   96 FORMAT(I10,4F12.5)
+C
+      NIN  = 2*NXPTS
+C
+C     END OF BLADE LEADING EDGE AND TRAILING EDGE MODIFICATION. 
+C     THE FINAL BLADE SHAPE IS NOW FIXED BUT IT REMAINS TO BE SCALED AND ROTATED.
+C    
+C**************************************************************************
+C**************************************************************************
+C**************************************************************************
+C     RE ENTER HERE IF THE BLADE COORDINATES WERE READ IN DIRECTLY
+C     THEY ARE USED WITHOUT ANY CHANGE IN BLADE PROFILE BUT THE BLADE CAN NOW BE
+C     SCALED AND ROTATED.
+C**********************************************************************************
+C***************************************************************************
+C
+ 9999 CONTINUE
+C
+C***************************************************************************
+C***************************************************************************
+      NIN1 = NIN + 1
+C
+C     ROTATE THE BLADE BY ANGLE ' ROTN ' DEGREES IN THE CLOCKWISE SENSE
+C     ABOUT THE AXIS 'XROT, YROT' .
+C
+      READ(7,*) ROTN,XROT,YROT
+C
+      IF(ABS(ROTN).LT.0.0001) GO TO 32
+C
+      ROTN = ROTN*DEGRAD
+      DO 31 N=1,NIN
+      XDIF = XSURF(N)-XROT
+      YDIF = YSURF(N)-YROT
+      DIST = SQRT(XDIF*XDIF+YDIF*YDIF)
+      ANGL = ATAN(YDIF/XDIF)
+      IF(XDIF.LT.0.0) ANGL = ANGL + PI
+      ANEW     = ANGL - ROTN
+      XSURF(N) = DIST*COS(ANEW)  + XROT
+      YSURF(N) = DIST*SIN(ANEW)  + YROT
+   31 CONTINUE
+C
+   32 CONTINUE
+C
+      WRITE(8,*) ' COORDINATES GOING ROUND THE BLADE AFTER ANY ROTATION'
+      WRITE(8,*) '    N        XSURF        YSURF '
+      DO  N = 1,NIN
+      WRITE(8,94)  N, XSURF(N), YSURF(N)
+      END DO
+   94 FORMAT( I10,2F12.5)
+C
+C***************************************************************************
+C***************************************************************************
+C      NOW FIND THE LEADING AND TRAILING EDGE POINTS,  NLE  and NTE .
+C
+      DO 33 I= 1,NIN
+      IM1  =  I-1
+      IP1  =  I+1
+      IF(I.EQ.1)   IM1  =  NIN
+      IF(I.EQ.NIN) IP1  =  1
+      IF(XSURF(IP1).GT.XSURF(I).AND.XSURF(IM1).GE.XSURF(I)) NLE = I
+      IF(XSURF(IP1).LT.XSURF(I).AND.XSURF(IM1).LE.XSURF(I))  NT = I
+   33 CONTINUE
+C
+      WRITE(8,*) ' LEADING EDGE POINT = ',NLE,' TE POINT =',NT
+C
+C      RE-ORDER THE POINTS TO COUNT CLOCKWISE FROM THE LEADING EDGE
+C
+      DO 40 I=1,NIN
+      N               = NLE + I - 1
+      IF(N.GT.NIN)  N = N - NIN
+      IF(N.EQ.NT) NTE = I
+      XCLOCK(I)     =   XSURF(N)
+   40 YCLOCK(I)     =   YSURF(N)
+      XCLOCK(NIN+1) =   XCLOCK(1)
+      YCLOCK(NIN+1) =   YCLOCK(1)
+C
+C**********************************************************************************
+C     THE  "NIN"  POINTS ARE NOW NUMBERED CLOCKWISE AROUND THE WHOLE BLADE STARTING
+C     FROM THE LEADING EDGE.
+C**********************************************************************************
+C
+C      SET THE UPPER SURFACE COORDINATES XUP,YUP
+C
+      DO 555 I = 1,NTE
+      XUP(I)   = XCLOCK(I)
+  555 YUP(I)   = YCLOCK(I)
+C
+C      SET THE LOWER SURFACE COORDINATES, XLOW,YLOW
+C
+      DO 66 I  = NTE,NIN+1
+      IR       = NIN + 2 - I
+      XLOW(IR) = XCLOCK(I)
+   66 YLOW(IR) = YCLOCK(I)
+C
+C**********************************************************************************
+C**********************************************************************************
+C   IN THE SUBSEQUENT NOTATION IT IS ASSUMED THAT THE UPPER BLADE SURFACE IS THE
+C   SUCTION SURFACE AND THE LOWER SURFACE IS THE PRESSURE SURFACE.
+C   BUT THIS IS ARBITRARY AND DOES NOT AFFECT THE RESULT.
+C**********************************************************************************
+C**********************************************************************************
+C
+      NSUCT = NTE
+      NPRES = NIN + 2 - NTE
+C
+      XMIN   = AMIN1(XLOW(1),XUP(1))
+      XMAX   = AMAX1(XUP(NSUCT),XLOW(NPRES))
+      XCHORD = XMAX - XMIN
+C
+      WRITE(8,*)
+      WRITE(8,*) ' NO OF SUCT S POINTS',NSUCT,' NO PRESS S POINTS',NPRES
+      WRITE(8,*) ' XMIN,XMAX, XCHORD  ' , XMIN,XMAX,XCHORD
+      WRITE(8,*)
+C
+C     MAKE SURE THAT THE TRAILING EDGE POINTS ARE NOT COINCIDENT AS THIS CAUSES A PROBLEM.
+C
+      TE_DIF_UP = XUP(NSUCT)-XUP(NSUCT-1)
+      IF(TE_DIF_UP.LT.0.000001)
+     &           XUP(NSUCT-1)  = 0.5*(XUP(NSUCT) + XUP(NSUCT-2))
+      TE_DIF_LOW = XLOW(NPRES)-XLOW(NPRES-1)
+      IF(TE_DIF_LOW.LT.0.000001)
+     &           XLOW(NPRES-1) = 0.5*(XLOW(NPRES) + XLOW(NPRES-2))
+C
+C    WRITE OUT THE FINAL POINTS ON THE SUCTION (UPPER)  AND PRESSURE (LOWER) BLADE SURFACES.
+C
+      WRITE(8,*) '  SUCTION SURFACE POINTS FROM LE TO TE.'
+C
+      DO 54       N = 1,NSUCT
+  54  WRITE(8,94) N,XUP(N),YUP(N)
+C
+      WRITE(8,*)
+      WRITE(8,*) '  PRESSURE SURFACE POINTS FROM LE TO TE.'
+      DO 551      N = 1,NPRES
+ 551  WRITE(8,94) N,XLOW(N),YLOW(N)
+
+**********************************************************************************
+******************************************************************************
+C      THE BLADE COORDINATES ARE NOW SET BUT UPPER AND LOWER SURFACE POINTS ARE NOT
+C      AT THE SAME AXIAL POSITION AS IS REQUIRED IN THE FINAL DATA SET.
+******************************************************************************
+**********************************************************************************
+
+C     INTERPOLATE IN THE SURFACE COORDINATES TO FIND THE VALUES
+C     AT X = XIN(N). AND SCALE BACK TO THE TRUE THICKNESS IF THE BLADE WAS
+C     THINNED BY FACTK.
+**********************************************************************************
+**********************************************************************************
+
+C       WRITE(8,*) ' POINTS ON THE BLADE TO BE USED FOR PLOTTING '
+C       WRITE(8,*) ' AND FINAL INTERPOLATION '
+C       WRITE(8,888)
+C   888 FORMAT('  N           X          YUP        YLOW        THICK ')
+
+C     THE AXIAL COORDINATES ARE BASED ON A COSINE DISTRIBUTION IN THETA.
+C     WHICH CLUSTERS THE POINTS TOWARDS THE LEADING AND TRAILING EDGES.
+
+C       DO 55 N = 1,NXPTS
+C       THETA   = (N-1)*PI/(NXPTS-1)
+C       XIN(N)  = 0.5*(1.-COS(THETA))
+C       IF(XIN(N).LT.0.1)  N4 = N
+C       IF(XIN(N).LT.0.90) N80 = N
+C       XARG    = XMIN + XIN(N)*XCHORD
+
+C      CALL INTP(NSUCT,XUP,YUP,XARG,YSIN(N))
+C      CALL INTP(NPRES,XLOW,YLOW,XARG,YPIN(N))
+
+C   USE LINEAR INTERPOLATION WHICH IS SAFER BUT NEEDS A LARGE NUMBER OF POINTS
+C       CALL LININT(NSUCT,XUP,YUP,XARG,YSIN(N))
+C       CALL LININT(NPRES,XLOW,YLOW,XARG,YPIN(N))
+
+C       YAVG    = 0.5*(YSIN(N)+YPIN(N))
+C       YSIN(N) = (YAVG + (YSIN(N)-YAVG)/FTHICK(N))/XCHORD
+C       YPIN(N) = (YAVG + (YPIN(N)-YAVG)/FTHICK(N))/XCHORD
+C       TKIN(N) = ABS(YSIN(N)-YPIN(N))
+C       XIN(N)  = (XARG - XMIN)/XCHORD
+C       WRITE(8,889) N,XIN(N),YSIN(N),YPIN(N),TKIN(N)
+C    55 CONTINUE
+C       XCHORD  = 1.0
+C       YCHORD  = 0.5*(YPIN(NXPTS) + YSIN(NXPTS))
+C   889 FORMAT(I5,4F12.4)
+
+**********************************************************************************
+**********************************************************************************
+C            NOW START TO PLOT OUT THE BLADE GENERATED.
+C            THIS USES HGRAPH AND MAY BE SKIPPED IF HGRAPH IS NOT AVAILABLE.
+**********************************************************************************
+**********************************************************************************
+
+C     FIRST SET UP ARRAYS TO PLOT THE TRAILING EDGE DETAIL
+
+C       J = 0
+C       DO 333 K = N80,NXPTS
+C       J = J+1
+C       XLTE(J) = XIN(K)
+C       YSTE(J) = YSIN(K)
+C       YPTE(J) = YPIN(K)
+C   333 CONTINUE
+C       NPTE = J
+
+*************************************************************************
+*************************************************************************
+C    IF  HGRAPH IS NOT AVAILABLE DELETE FROM HERE TO STATEMENT 37
+*************************************************************************
+*************************************************************************
+
+C      NOW PLOT THE BLADE SECTION GENERATED AND THE THICKNESS DISTRIBUTION
+C      ON THE SCREEN AND ENQUIRE IF IT IS ACCEPTABLE.
+
+C       WRITE(6,*)'******************************************************'
+C       WRITE(6,*)'******************************************************'
+
+C       WRITE(6,130) NSECT
+C   130 FORMAT(/,' DO YOU WANT TO PLOT SECTION NUMBER ', I5)
+C       READ(5,38) ANS
+C       IF(ANS.NE.'Y'.AND.ANS.NE.'y') GO TO 37 
+
+C     PLOT THE BLADE 
+
+C       CALL SELPLT(9)
+C       CALL GRFAR(XIN,YSIN,NXPTS,1,'*',1,1)
+C       CALL PLTAR(XIN,YPIN,NXPTS,1,'*')
+C       CALL XLABEL('X  COORDINATE ',14)
+C       CALL YLABEL('Y  COORDINATE ',14)
+C       CALL TITLE(0.25,0.90,0.75,0.90,0,'BLADE PROFILE',13)
+C       CALL BRKPLT 
+
+C      PLOT THE THICKNESS DISTRIBUTION
+C  
+      CALL SELPLT(9)
+      CALL GRFAR(XIN,TKIN,NXPTS,1,'o',1,0)
+      CALL XLABEL('X  COORDINATE ',14)
+      CALL YLABEL('TANGENTIAL THICKNESS',20)
+      CALL TITLE(0.25,0.02,0.75,0.02,0,'THICKNESS DISTRIBUTION',22)
+      CALL BRKPLT
+C
+C     PLOT AN ENLARGED VIEW OF THE LEADING EDGE
+C
+      CALL SELPLT(9)
+      CALL GRFAR(XIN,YSIN,N4,1,'+',1,1) 
+      CALL PLTAR(XIN,YPIN,N4,1,'x') 
+      CALL XLABEL('X  COORDINATE ',14)
+      CALL YLABEL('Y  COORDINATE ',14)
+      CALL TITLE(0.05,0.05,0.10,0.05,0,'LEADING EDGE DETAIL',19)
+      CALL BRKPLT 
+C 
+C
+C     PLOT AN ENLARGED VIEW OF THE TRAILING EDGE
+C
+      YLAB = YCHORD - 0.05
+      CALL SELPLT(9)
+      CALL GRFAR(XLTE,YSTE,NPTE,1,'+',0,1)
+      CALL PLTAR(XLTE,YPTE,NPTE,1,'x')
+      CALL XLABEL('X  COORDINATE ',14)
+      CALL YLABEL('Y  COORDINATE ',14)
+      CALL TITLE(0.93,YLAB,0.98,YLAB,0,'TRAILING EDGE DETAIL',20)
+      CALL BRKPLT
+C
+      WRITE(6,36)
+   36 FORMAT(  ' IS THIS OK,  Y or N ?') 
+      READ(5,38) ANS
+   38 FORMAT(A1)
+C
+      WRITE(6,*)'******************************************************'
+      WRITE(6,*)'******************************************************'
+C  
+C
+C
+      IF(ANS.EQ.'Y'.OR.ANS.EQ.'y') GO TO 37 
+C
+C     STOP THE RUN IF THE BLADE IS NOT ACCEPTABLE.
+C
+      WRITE(6,*) ' PROGRAM TERMINATED TO ALLOW THE INPUT DATA'
+      WRITE(6,*) ' FILE   "stagen.dat"   TO BE CHANGED. '
+C
+C
+C     WRITE OUT THE NEW SURFACE SLOPES TO FILE NEWSLOP '
+C
+      OPEN(UNIT=13,FILE='NEWSLOP')
+      DO N = 1,NPIN
+      SUP  = ATAN(SLPUP(N))/DEGRAD
+      SDWN = ATAN(SLPLOW(N))/DEGRAD
+      WRITE(13,550) FRACX(N),SNEWUP(N),SNEWLOW(N),SUP,SDWN
+      END DO
+  550 FORMAT(' FRACTIONAL CHORD ',F10.3,' NEW SURFACE SLOPES ',2F10.3, 
+     &       ' PREVIOUS SLOPES ',2F10.3)
+      CLOSE(13)
+C
+      STOP
+C
+C*********************************************************************************
+C*********************************************************************************
+   37 CONTINUE 
+C*********************************************************************************
+C*********************************************************************************
+C
+C     CONTINUE IF THE BLADE WAS JUDGED ACCEPTABLE
+C
+C*********************************************************************************
+C*****************************************************************************
+C*****************************************************************************
+C      THE CURRENT  X  COORDINATES ARE BASED ON A COSINE DISTRIBUTION OF AXIAL POINTS.
+C      INTERPOLATE TO FIND THE GRID COORDINATES AT THE CALCULATION NODES. 
+C 
+      DO 70 I=2,NPON 
+      XARG = XGRIDON(I)
+      NFIN = NPUP + I 
+      XGRID(NFIN) = XARG 
+      CALL INTP(NXPTS,XIN,YSIN,XARG,YGRID(NFIN))
+      CALL INTP(NXPTS,XIN,TKIN,XARG,TKGRID(NFIN))
+   70 CONTINUE
+C
+C*****************************************************************************
+C*****************************************************************************
+C
+C     READ IN THE UPSTREAM AND DOWNSTREAM GRID EXTENSIONS AS FRACTIONS 
+C     OF THE AXIAL CHORD. ALSO THE ANGLES OF THE GRID EXTENSIONS IN DEGREES.
+C
+C     !!!!!! BEWARE THE ANGLES MAY HAVE TO BE NEGATIVE !!!!!! 
+C
+      READ(7,*) XCUP, XCDWN, BETUP, BETDN 
+C
+C*********************************************************************************
+C*********************************************************************************
+C 
+      BETUP = TAN(BETUP*DEGRAD) 
+      BETDN = TAN(BETDN*DEGRAD) 
+C
+C     FIND THE EXPANSION RATIOS OF THE GRID SPACINGS FOR THE UPSTREAM AND DOWNSTREAM GRIDS
+C     THIS SETS THE LENGTH OF THE EXTENSIONS AS XCUP  AND XCDWN AND MAKES THE GRID SPACING
+c     CONTINUOUS AT THE LEADING AND TRAILING EDGE.
+C 
+      RUP = XCUP/F(1) 
+      RDN = XCDWN/F(NINTON)
+      RAT = 1.2
+      IF(RUP.LT.NPUP) RAT=0.9
+      M = 1 
+  50  RHS = (RAT-1.)*RUP 
+      IF(RUP.GE.NPUP) RAT = 0.5*(RAT+(RHS+1.)**(1./NPUP))
+      IF(RUP.LT.NPUP) RAT = 0.5*(RAT+ (RAT**NPUP -1.)/RUP  + 1.)
+      M = M+1
+      IF(M.GT.50) GO TO 51
+      GO TO 50 
+   51 RATUP = RAT 
+      RAT   = 1.2
+      IF(RDN.LT.NPDN) RAT=0.9
+      M = 1 
+   60 RHS = (RAT-1.)*RDN 
+      IF(RDN.GE.NPDN) RAT=0.5*(RAT+(RHS+1.)**(1./NPDN))
+      IF(RDN.LT.NPDN) RAT=((RAT**NPDN -1.)/RDN  + 1.)
+      M = M+1 
+      IF(M.GT.50) GO TO 61
+      GO TO 60 
+   61 RATDN = RAT 
+      WRITE(8,65)  RATUP, RATDN 
+   65 FORMAT( ' GRID EXPANSION RATIO UP= ',F10.5,' DOWN = ',F10.5) 
+C
+C*********************************************************************************
+C*********************************************************************************
+C      FORM THE GRID UPSTREAM OF THE LEADING EDGE 
+C 
+      DX = F(1) 
+      DY = DX*BETUP
+      XGRID(NPUP+1) = 0.0
+      YC1 = YGRID(NPUP+2) - 0.5*TKGRID(NPUP+2)
+      YC2 = YGRID(NPUP+3) - 0.5*TKGRID(NPUP+3)
+      YGRID(NPUP+1)  = 2.*YC1 - YC2
+      TKGRID(NPUP+1) = 0.0
+      DO 80 I=1,NPUP 
+      NFIN = NPUP+1-I 
+      XGRID(NFIN)  = XGRID(NFIN+1) -  DX 
+      YGRID(NFIN)  = YGRID(NFIN+1) -  DY 
+      TKGRID(NFIN) = 0.0 
+      DX = DX*RATUP 
+      DY = BETUP*DX 
+   80 CONTINUE
+C*********************************************************************************
+C********************************************************************************* 
+C      NOW DO THE SAME FOR THE DOWNSTREAM GRID 
+C 
+      DX = F(NINTON) 
+      DY = DX*BETDN 
+      DO 90 I=1,NPDN 
+      NFIN = NPUP+NPON+I 
+      XGRID(NFIN)  = XGRID(NFIN-1) + DX 
+      YGRID(NFIN)  = YGRID(NFIN-1)-0.5*TKGRID(NFIN-1) + DY
+      TKGRID(NFIN) = 0.0 
+      DX = DX*RATDN 
+      DY = DX*BETDN 
+   90 CONTINUE
+C
+C    SET THE  "J"  COORDINATE OF THE LEADING AND TRAILING EDGES AND THE DOWNSTREAM POINT
+C    OF THE FINAL GRID.
+C
+      JM  = NPUP+NPON+NPDN 
+      JLE = NPUP+1 
+      JTE = NPUP+NPON 
+      TKGRID(JTE+1) = 0.5*TKGRID(JTE)
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+C     THE BLADE COORDINATES AND THICKNESS ARE NOW SET AT THE GRID POINTS.
+C     BUT THE BLADE STILL HAS UNIT AXIAL CHORD.
+C 
+C*******************************************************************************
+C*******************************************************************************
+C
+C     INPUT DATA TO DEFINE THE STREAM SURFACE ONTO WHICH THE BLADE GENERATED
+C     ABOVE WILL BE PROJECTED. "NSSURF"  IS THE NUMBER OF POINTS IN THE TABLE.
+C*********************************************************************************
+C*********************************************************************************
+C
+C
+      READ(7,1650) dummy line
+C
+C     READ IN THE NUMBER OF POINTS USED TO DEFINE THE STREAM SURFACE
+C
+      READ(7,*) NSSURF
+C
+C      READ IN A TABLE OF NSSURF  X, R  COORDINATES OF THE STREAM SURFACE
+C      ONTO WHICH THE BLADE IS TO BE PROJECTED.
+C
+      READ(7,*)  (XRIN(N), N = 1,NSSURF)
+      READ(7,*)  (RIN(N),  N = 1,NSSURF)
+C
+C     READ IN THE X , R, COORDINATES OF THE BLADE LEADING AND TRAILING E$DGES.
+C     THESE MUST BE ON OR CLOSE TO THE STREAM SURFACE.
+C
+      READ(7,*)   XLE, XTE, RLE, RTE
+C
+C
+C     EVALUATE THE MERIDIONAL DISTANCE OF THE POINTS ON THE STREAM SURFACE
+C
+      SMERID(1) = 0.0
+      DO 108  N = 2,NSSURF
+      DX = XRIN(N)-XRIN(N-1)
+      DR = RIN(N) -RIN(N-1)
+  108 SMERID(N) = SMERID(N-1)+SQRT(DX*DX+DR*DR)
+C
+C     FIND THE MERIDIONAL CHORD AT THE LEADING AND TRAILING EDGE POINTS
+C     FIRST THE LEADING EDGE.
+      ADD    = 0.0
+      SMERLE = SMERID(1)
+      SMERTE = SMERID(NSSURF)
+      DO 109 N=2,NSSURF
+      DX   = XRIN(N)-XRIN(N-1)
+      IF(DX.LT.1.0E-5) DX = 1.0E-5
+      DRDX = (RIN(N)-RIN(N-1))/DX
+      DXR = XLE-XRIN(N-1)
+      DXF = XLE-XRIN(N)
+      DRR = RLE-RIN(N-1)
+      DRF = RLE-RIN(N)
+      IF(ABS(DRDX).LE.1.0) THEN
+           IF((DXR*DXF).LE.0.0) THEN
+                ADD    = SQRT(DXR*DXR+DRR*DRR)
+                SMERLE = SMERID(N-1) + ADD
+           ENDIF
+      ELSE
+           IF((DRR*DRF).LE.0.0) THEN
+                 ADD    = SQRT(DXR*DXR+DRR*DRR)
+                 SMERLE = SMERID(N-1) + ADD
+           ENDIF
+      ENDIF
+C
+C   NEXT THE TRAILING EDGE
+C
+      DXR = XTE-XRIN(N-1)
+      DXF = XTE-XRIN(N)
+      DRR = RTE-RIN(N-1)
+      DRF = RTE-RIN(N)
+      IF(ABS(DRDX).LE.1.0) THEN
+           IF((DXR*DXF).LE.0.0) THEN
+                ADD    = SQRT(DXR*DXR+DRR*DRR)
+                SMERTE = SMERID(N-1) + ADD
+           ENDIF
+      ELSE
+           IF((DRR*DRF).LE.0.0) THEN
+                ADD    = SQRT(DXR*DXR+DRR*DRR)
+                SMERTE = SMERID(N-1) + ADD
+           ENDIF
+      ENDIF
+C
+  109 CONTINUE
+C
+C*********************************************************************************
+C**********************************************************************************
+C     FORM THE MERIDIONAL CHORD, "SCHORD",  AND THE OVERALL SCALING FACTOR "SCALE".
+C
+      SCHORD = SMERTE - SMERLE
+      SCALE  = SCHORD/XCHORD
+C
+C*********************************************************************************
+C*********************************************************************************
+C     NOW SCALE THE BLADE AND PROJECT THE TWO-DIMENSIONAL BLADE
+C     ALREADY GENERATED ONTO THE SPECIFIED STREAM SURFACE.
+C
+C     THE "Y" COORDINATE OF THE ORIGINAL SECTION IS STILL A "Y" COORDINATE.
+C     IT IS TRANSFORMED TO RTHETA LATER.
+C
+C     THE LEADING AND TRAILING EDGE POINTS ARE THOSE SPECIFIED ON
+C     THE STREAM SURFACE. THE CENTROID OF THE SECTION IS SET TO BE
+C     THE ORIGIN OF THE CIRCUMFERENTIAL COORDINATE.
+C*********************************************************************************
+C*********************************************************************************
+C
+      WRITE(8,*)' AXIAL,TANGENTIAL AND RADIAL COORDINATES ON THE STREAM'
+      WRITE(8,*)' SURFACE BEFORE TRANSFORMING TO R-THETA COORDINATES '
+      DO 110 J  = 1,JM 
+      SGRID(J)  = SMERLE + SCALE*XGRID(J) 
+      YGRID(J)  = SCALE*YGRID(J)
+      TKGRID(J) = SCALE*TKGRID(J)
+      XARG      = SGRID(J)
+      CALL INTP(NSSURF,SMERID,XRIN,XARG,XGRID(J))
+      CALL INTP(NSSURF,SMERID ,RIN,XARG,RGRID(J))
+C      CALL LININT(NSSURF,SMERID,XRIN,XARG,XGRID(J))
+C      CALL LININT(NSSURF,SMERID ,RIN,XARG,RGRID(J))
+      WRITE(8,*) 'J, XGRID,YGRID,RGRID ', J,XGRID(J),YGRID(J),RGRID(J)
+  110 CONTINUE
+C
+C*********************************************************************************
+C*********************************************************************************
+C     FIND THE CENTROID OF THE SECTION 
+C*********************************************************************************
+C********************************************************************************* 
+      SUM  = 0.0 
+      SUM1 = 0.0 
+      SUM2 = 0.0 
+      DO 44 J= JLE+1,JTE
+      AREA = 0.5*(TKGRID(J) + TKGRID(J-1))*(XGRID(J) - XGRID(J-1))
+      SUM  = SUM  + AREA
+      SUM1 = SUM1 + AREA*0.5*(XGRID(J) + XGRID(J-1)) 
+      SUM2 = SUM2 + AREA*(  0.5*(YGRID(J) + YGRID(J-1))
+     &     -0.25*(TKGRID(J) + TKGRID(J-1))  )
+   44 CONTINUE 
+      XCENTROID= SUM1/SUM 
+      YCENTROID= SUM2/SUM
+C
+      WRITE(8,*)
+      WRITE(8,45) XCENTROID,YCENTROID 
+   45 FORMAT ( '  THE BLADE CENTROID ON THE X-Y SURFACE IS AT X, Y= ',
+     &            2F10.5 )
+      WRITE(8,*)
+      WRITE(6,*)
+      WRITE(6,45) XCENTROID,YCENTROID 
+      WRITE(6,*)
+C
+C     FIND THE J VALUE AT THE CENTROID
+C
+      JCENT = JM/2
+      DXJM1 = 0.0
+      DO 46 J  = JLE,JTE 
+      DXJ  = XCENTROID - XGRID(J)
+      RATX = DXJM1/DXJ
+      IF(RATX.LT.0.0) JCENT = J
+      DXJM1 = DXJ
+   46 CONTINUE
+      WRITE(8,*)
+      WRITE(8,*)  ' THE J VALUE OF THE CENTROID IS J = ', JCENT
+C
+C********************************************************************************
+C*******************************************************************************
+C     TRANSFORM THE SECTION  "Y"  COORDINATES TO  "R-THETA"  COORDINATES
+C     USING  DTHETA =  DY/R .
+C
+      THETA_NEW(1) = 0.0
+      DO 111 J = 2,JM
+      THETA_NEW(J) = THETA_NEW(J-1) + 2.0*(YGRID(J) - YGRID(J-1))
+     &              /(RGRID(J) + RGRID(J-1))
+  111 CONTINUE
+      DO 112 J = 1,JM
+      YGRID(J) =  RGRID(J)*(THETA_NEW(J) - THETA_NEW(JCENT))
+  112 CONTINUE
+C
+C  RE-SET YCENTROID AS IT WILL HAVE CHANGED.
+      YCENTROID = YGRID(JCENT)
+C
+C    STORE THE CENTROID AT THE HUB FOR USE IN STACKING.
+C
+      IF(NSECT.EQ.1) THEN
+           XCENT_HUB = XCENTROID
+           YCENT_HUB = YCENTROID
+      ENDIF
+C
+      WRITE(8,*)
+      WRITE(8,*) ' THE CENTROID ON THE STREAM SURFACE IS AT',
+     &             XCENTROID,YCENTROID
+      WRITE(8,*) ' THE HUB SECTION CENTROID IS AT', XCENT_HUB,YCENT_HUB
+      WRITE(8,*)
+C
+C 
+C*******************************************************************************
+C*******************************************************************************
+C     THE BLADE IS NOW FULLY DEFINED ON THE STREAM SURFACE WITH THE MERIDIONAL 
+C     COORDINATES OF THE LEADING AND TRAILING EDGE POINTS BEING THOSE SPECIFIED
+C     BY THE STREAM SURFACE INPUT DATA. 
+C
+C     HOWEVER, THESE MAY BE CHANGED BY RE-STACKING THE BLADE AS FOLLOWS:
+C
+C*******************************************************************************
+C*******************************************************************************
+C
+C      THE BLADE MAY NOW BE SHIFTED,  IT IS MOVED:
+C
+C      TOWARDS A STACKING AXIS THROUGH THE HUB
+C      SECTION CENTROID BY A PROPORTION       fcentroid
+C
+C      TANGENTIALLY BY:                       ftang*meridional chord
+C
+C      LEANED PERPENDICULAR TO THE CHORD LINE
+C      IN THE POSITIVE Y DIRECION BY:         flean*meridional chord.
+C
+C      FORWARD SWEPT ALONG THE CHORD LINE BY: fsweep*meridional chord
+C
+C      MOVED meridionalLY BY:                 faxial*meridional chord.    
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+      READ(7,*)  FCENTROID, FTANG, FLEAN, FSWEEP, FAXIAL
+C
+C     THE BLADE CHORD CAN ALSO BE SCALED BY A FACTOR "fscale" WITH THE
+C     POINT AT A FRACTION "fconst" OF THE CHORD BEING HELD FIXED.
+C
+      READ(7,*)   FSCALE, FCONST
+      IF(FSCALE.LT.0.00001) THEN
+           FSCALE = 1.0
+           FCONST = 0.0
+      ENDIF
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+C   JDD ADDITION  OCTOBER 2013. TO AVOID STACKING PROBLEMS ON RADIAL FLOW MACHINES.
+C   SET FCENTROID > 1 FOR RADIAL FLOW MACHINES.
+      IF(FCENTROID.GT.1.01)  GO TO 126
+C 
+C   JDD ADDITION  OCTOBER 2015. TO AVOID STACKING PROBLEMS ON RADIAL FLOW MACHINES.
+C   IF FCENTROID WAS NOT SET AS ABOVE.
+      XDIF = ABS(XTE - XLE)
+      RDIF = ABS(RTE - RLE)
+      IF(RDIF.GT.0.5*XDIF) GO TO 126
+C   END OF ADDITION
+C
+C*********************************************************************************
+C*********************************************************************************
+C     NOW MOVE THE BLADE BY A FRACTION "FCENTROID" TOWARDS A STACKING AXIS 
+C     THROUGH THE CENTROID OF THE HUB SECTION.
+C     THIS MAKES NO CHANGE IF "FCENTROID"  = 0.
+C 
+      WRITE(8,*) ' AXIAL & RADIAL COORDINATES ON THE SS AFTER STACKING '
+      DO 120 J = 1,JM
+      XGRID(J) = XGRID(J) + FCENTROID*(XCENT_HUB - XCENTROID)
+      YGRID(J) = YGRID(J) + FCENTROID*(YCENT_HUB - YCENTROID)  
+      WRITE(8,*) ' J  , XGRID,RGRID ', J, XGRID(J),RGRID(J)
+  120 CONTINUE
+C
+C   RE-ENTER HERE FOR RADIAL FFLOW MACHINES
+  126 CONTINUE
+C
+C*********************************************************************************
+C*********************************************************************************
+C     CALCULATE THE AXIAL AND TANGENTIAL MOVEMENTS DUE TO ANY BLADE
+C     SWEEP , LEAN , AXIAL SHIFT OR SCALING. THESE ARE FRACTIONS OF
+C     THE AXIAL CHORD. (TRUCHORD) .
+C 
+      XLE      = XGRID(JLE)
+      XTE      = XGRID(JTE)
+      YTE      = YGRID(JTE)
+      YLE      = YGRID(JLE)
+      RLE      = RGRID(JLE)
+      RTE      = RGRID(JTE)
+      XDIF     = XTE - XLE
+      YDIF     = YTE - YLE
+      RDIF     = RTE - RLE
+      TRU_CHORD= SQRT(XDIF*XDIF + YDIF*YDIF)
+      DELTAX   = (-FSWEEP*XDIF - FLEAN*YDIF) + FAXIAL*XDIF
+      DELTAY   = (-FSWEEP*YDIF + FLEAN*XDIF) + FTANG*XDIF
+      XCONST   = XLE    + FCONST*XDIF
+C
+C     NOW MOVE THE SECTION IF ANY SWEEP, LEAN OR AXIAL SHIFT IS SPECIFIED.
+C     FIRSTLY MAKE ONLY AXIAL AND TANGENTIAL MOVEMENTS,
+C     THEN INTERPOLATE BACK ONTO THE STREAM SURFACE TO FIND THE NEW RADIUS.
+C     DO NOT INTERPOLATE BACK FOR RADIAL AND MIXED FLOW MACHINES AS THE XGRID 
+C     VALUES MAY BE CONSTANT SO INTERPOLATION IN  X  WILL NOT WORK.
+C*********************************************************************************
+C*********************************************************************************
+C 
+      DO 125 J  = 1,JM 
+      XGRID(J)  = XCONST + FSCALE*(XGRID(J) - XCONST  + DELTAX)
+      YGRID(J)  =          FSCALE*(YGRID(J) + DELTAY)
+      IF(ABS(RDIF).GT.0.5*ABS(XDIF)) GO TO 125
+      ARG = XGRID(J)
+      CALL INTP(NSSURF,XRIN,RIN,ARG,RGRID(J))
+  125 CONTINUE
+C
+C     RESET SGRID 
+C
+      SGRID(1) = 0.0
+      DO 127 J=2,JM
+      DX = XGRID(J) - XGRID(J-1)
+      DR = RGRID(J) - RGRID(J-1)
+      SGRID(J) = SGRID(J-1) + SQRT(DX*DX + DR*DR)
+      YMID(J)  = YGRID(J) - 0.5*TKGRID(J)
+  127 CONTINUE
+C
+C*********************************************************************
+C*********************************************************************
+C     THE BLADE IS NOW FULLY DEFINED ON THE STREAM SURFACE
+C*********************************************************************
+C*********************************************************************
+C
+C     FORM A CUSP AT THE TRAILING EDGE BY EXTRAPOLATING FROM UPSTREAM.
+C     ONLY IF "IF_CUSP"  >  0 . 
+C
+      IF(IF_CUSP.GT.0) THEN
+C  FIND THE START OF THE TRAILING EDGE THINNING
+      DO J = JTE-10,JTE
+           RTHIK   = TKGRID(J)/TKGRID(J-1)
+           IF(RTHIK.LT.0.9) GO TO 128
+      END DO
+  128 CONTINUE
+C
+      JCS = J-1 
+      IF(JCS.LE.JLE+2) JCS = JLE+2
+      JCE = JTE + LCUSP
+C
+C     EXTAPOLATE THE BLADE SURFACES FROM UPSTREAM TO THE TRAILING EDGE 
+      TKGRAD = (TKGRID(JCS) - TKGRID(JCS-2))
+     &       / (SGRID(JCS)  - SGRID(JCS-2))
+      YGRAD  = (YMID(JCS) - YMID(JCS-2))/(SGRID(JCS) - SGRID(JCS-2))     
+      DO J = JCS,JTE
+           YMID(J)   = YMID(JCS)   +  YGRAD*(SGRID(J) - SGRID(JCS))
+           TKGRID(J) = TKGRID(JCS) + TKGRAD*(SGRID(J) - SGRID(JCS))
+           IF(TKGRID(J).LT.0.0) TKGRID(J) = 0.0
+           YGRID(J)  = YMID(J)  + 0.5*TKGRID(J)
+      END DO
+C
+C     FORM THE CUSP DOWNSTREAM OF THE TRAILING EDGE.
+      TKGRAD = -TKGRID(JTE)/(SGRID(JCE) - SGRID(JTE))
+      DO J = JTE,JM
+           YMID(J)   = YMID(JCS)   +  YGRAD*(SGRID(J) - SGRID(JCS))
+           TKGRID(J) = TKGRID(JTE) + TKGRAD*(SGRID(J) - SGRID(JTE))
+           IF(TKGRID(J).LT.0.0) TKGRID(J) = 0.0 
+           YGRID(J)  = YMID(J)  + 0.5*TKGRID(J)
+      END DO    
+C
+      END IF
+C
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+C
+C      WRITE OUT FINAL GRID TO UNIT 4
+C
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+C 
+      IF(KM.EQ.2.AND.NSECT.NE.NSECT_Q3D) GO TO 9001
+C
+      WRITE(4,1700) FAC_SCALE 
+      WRITE(4,1700) (XGRID(J),J=1,JM) 
+      WRITE(4,1700) FAC_SCALE 
+      WRITE(4,1700) (YGRID(J),J=1,JM) 
+      WRITE(4,1700) FAC_SCALE 
+      WRITE(4,1700) (TKGRID(J),J=1,JM) 
+      WRITE(4,1700) FAC_SCALE 
+      WRITE(4,1700) (RGRID(J),J=1,JM) 
+C
+C*********************************************************************
+C      WRITE OUT FINAL GRID TO UNIT 10
+C********************************************************************* 
+C
+      WRITE(10,1715) FAC_SCALE, 0.0, 0
+      WRITE(10,1700) (XGRID(J),J=1,JM)
+      WRITE(10,1700) FAC_SCALE, 0.0
+      WRITE(10,1700) (YGRID(J),J=1,JM)
+      WRITE(10,1700) FAC_SCALE
+      WRITE(10,1700) (TKGRID(J),J=1,JM)
+      WRITE(10,1700) FAC_SCALE, 0.0
+      WRITE(10,1700) (RGRID(J),J=1,JM)
+C
+ 9001 CONTINUE
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+C******************** END OF GENERATION OF THIS BLADE SECTION****************
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+C     INPUT THE STREAM SURFACE THICKNESS IF KM = 2. THIS IS INITIALLY ASSUMED TO BE
+C     CONSTANT THICKNESS.
+C
+CC*********************************************************************************
+C*********************************************************************************
+      IF(KM.GT.2.OR.NSECT.NE.NSECT_Q3D) GO TO 9002
+C
+      WRITE(10,*) ' DATA FOR STREAM SURFACE THICKNESS '
+      WRITE(10,*)  1.0 , ' Q3DFORCE '
+      WRITE(10,*)  5 , ' A UNIFORM  SS THICKNESS IS INITIALLY SET'
+      WRITE(10,*)  0.0, 0.25, 0.5, 0.75, 1.0
+      WRITE(10,*)  1.0, 1.00, 1.0, 1.00, 1.0
+C
+      WRITE(4,*) ' DATA FOR STREAM SURFACE THICKNESS '
+      WRITE(4,*)  1.0 , ' Q3DFORCE'
+      WRITE(4,*)  5 ,' A UNIFORM  SS THICKNESS IS INITIALLY SET'
+      WRITE(4,*)  0.0, 0.25, 0.5, 0.75, 1.0
+      WRITE(4,*)  1.0, 1.00, 1.0, 1.00, 1.0
+C
+ 9002 CONTINUE
+C 
+C*********************************************************************************
+C*********************************************************************************
+C     END OF DATA INPUT ON ONE BLADE SECTION
+C
+10000 CONTINUE
+C
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+C
+C     WRITE OUT THE DEVIATION ANGLES FOR A THROUGHFLOW CALCULATION.
+C     THESE ARE INITIALLY SET TO ZERO DEVIATION
+C
+      IF(IM.EQ.2) THEN
+      WRITE(4,*) ' THROUGHFLOW BLADE EXIT OR DEVIATION ANGLES.'
+      WRITE(4,*) 'D', 3
+      WRITE(4,*)  0.0,  0.5,   1.0
+      WRITE(4,*)  0.0,  0.0,   0.0
+C
+      WRITE(10,*) ' THROUGHFLOW BLADE EXIT OR DEVIATION ANGLES.'
+      WRITE(10,*) 'D', 3
+      WRITE(10,*)  0.0,  0.5,   1.0
+      WRITE(10,*)  0.0,  0.0,   0.0
+      END IF
+C
+C*********************************************************************************
+C*********************************************************************************
+C*********************************************************************************
+
+C******************* END OF GENERATION FOR THIS BLADE ROW*********************
+C
+ 9000 CONTINUE
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+C      THE FOLLOWING DATA IS A GUESS OF CONTROL VARIABLES FOR THE 3D
+C      PROGRAM AND MAY BE EDITED IN THE FINAL OUTPUT FILE IF CHANGES
+C      ARE REQUIRED
+C
+C*********************************************************************************
+C*********************************************************************************
+C
+C     READ IN THE INLET AND OUTLET PRESSURES FOR THE 3D PROGRAM
+C     THESE ARE FOR THE WHOLE MACHINE NOT FOR A BLADE ROW
+C
+      READ(7,1650) dummy line
+      READ(7,*)    PUPHUB,PUPTIP,PDHUB,PDTIP
+      read(7,1650) dummy line
+C
+C*********************************************************************************
+C*********************************************************************************
+C      READ IN TABLES OF INLET FLOW VARIABLES REQUIRED BY THE 3D CALCULATION
+C      AT 'NINLET' POINTS AT FRACTIONS OF THE INLET SPAN GIVEN BY 'FSPAN'
+C*********************************************************************************
+C*********************************************************************************
+C
+      READ(7,*)  NINLET
+      READ(7,*) (FSPAN(I),I=1,NINLET)
+      READ(7,*) (POIN(I),I=1,NINLET)
+      READ(7,*) (TOIN(I),I=1,NINLET)
+      READ(7,*) (VTIN(I),I=1,NINLET)
+      READ(7,*) (VMIN(I),I=1,NINLET)
+      READ(7,*) (B1IN(I),I=1,NINLET)
+      READ(7,*) (BRIN(I),I=1,NINLET)
+C
+C     INTERPOLATE IN THE INLET CONDITIONS.
+C
+      DO 95 K=1,KM
+      ARG = SUMFR(K)/SUMFR(KM)
+      CALL INTP(NINLET,FSPAN,POIN,ARG,PO1(K))
+      CALL INTP(NINLET,FSPAN,TOIN,ARG,TO1(K))
+      CALL INTP(NINLET,FSPAN,VTIN,ARG,VT1(K))
+      CALL INTP(NINLET,FSPAN,VMIN,ARG,VM1(K))
+      CALL INTP(NINLET,FSPAN,B1IN,ARG,B1(K))
+      CALL INTP(NINLET,FSPAN,BRIN,ARG,BR(K))
+   95 CONTINUE
+C
+C*********************************************************************************
+C*********************************************************************************
+C   WRITE OUT SOME CONTROL PARAMETERS
+C
+      WRITE(4,1704) CP,GA,CFL,SFT,SFX,MACHLIM
+      WRITE(4,1700) DAMP,DUMMY,FBLK1,FBLK2,FBLK3,SFEX,CLIM,RFIN
+      WRITE(4,1701) PUPHUB,PUPTIP,PDHUB,PDTIP 
+C
+C*********************************************************************************
+C*********************************************************************************
+C     WRITE OUT THE INLET BOUNDARY CONDITIONS TO "OLD_READIN.DAT"
+C
+      WRITE(4,1701) (PO1(K),K=1,KM)
+      WRITE(4,1701) (TO1(K),K=1,KM)
+      WRITE(4,1700) (VT1(K),K=1,KM)
+      WRITE(4,1700) (VM1(K),K=1,KM)
+      WRITE(4,1700) (B1(K),K=1,KM)
+      WRITE(4,1700) (BR(K),K=1,KM) 
+      WRITE(4,1700) (FR(K),K=1,KMM1)
+      WRITE(4,1700) (FP(I),I=1,IMM1) 
+      WRITE(4,1705) (NMAX,NN=1,5)
+      WRITE(4,1716) (0,I=1,20)
+      WRITE(4,1716) (0,K=1,KM) 
+C
+C*********************************************************************************
+C*********************************************************************************
+C     WRITE OUT THE INLET BOUNDARY CONDITIONS IN  "NEW_READIN" FORMAT .
+C
+      WRITE(10,*) ' STARTING INLET BOUNDARY CONDITION DATA .'
+      WRITE(10,*) ' NUMBER OF POINTS FOR INLET BOUNDARY CONDITIONS '
+      WRITE(10,1703) KM
+      WRITE(10,*) ' SPACING OF INLET BOUNDARY CONDITION POINTS '
+      WRITE(10,1700)  (FR(K),K=1,KMM1)
+      WRITE(10,*) '  INLET STAGNATION PRESSURES '
+      WRITE(10,1701) (PO1(K),K=1,KM)
+      WRITE(10,*) '  INLET STAGNATION TEMPERATURES '
+      WRITE(10,1717) (TO1(K),K=1,KM)
+      WRITE(10,*) '  INLET ABSOLUTE TANGENTIAL VELOCITY '
+      WRITE(10,1717) (VT1(K),K=1,KM)
+      WRITE(10,*) '  INLET MERIDIONAL VELOCITY '
+      WRITE(10,1717) (VM1(K),K=1,KM)
+      WRITE(10,*) '  INLET MERIDIONAL YAW ANGLE  '
+      WRITE(10,1717) (B1(K),K=1,KM)
+      WRITE(10,*) '  INLET PITCH ANGLE '
+      WRITE(10,1717) (BR(K),K=1,KM) 
+C
+C*********************************************************************************
+C*********************************************************************************
+C   OUTPUT THE EXIT PRESSURES FOR NEW_READIN
+      WRITE(10,*) '  PDOWN_HUB   PDOWN_TIP '
+      WRITE(10,1701) PDHUB, PDTIP
+C
+C*********************************************************************************
+C*********************************************************************************
+C   WRITE OUT THE VISCOUS FACTORS. TO OLD_READIN.DAT
+C
+      WRITE(4,1702) REYNO,RF_VIS,FTRANS,FAC_4TH,TURBVIS_LIM,
+     &              PRANDTL,YPLUSWALL
+C
+C*********************************************************************************
+C*********************************************************************************
+C  WRITE OUT THE SCALING FACTORS FOR THE S-A SOURCE TERMS.TO OLD_READIN.DAT
+C
+      IF(ILOS.GE.200)THEN
+           WRITE(4,1700) FAC_STMIX, FAC_ST0, FAC_ST1, FAC_ST2,
+     &                   FAC_ST3, FAC_SFVIS, FAC_VORT, FAC_PGRAD
+      END IF
+C
+C*********************************************************************************
+C*********************************************************************************
+C     WRITE OUT THE MIXING PLANE FACTORS
+C
+      WRITE(4,1700)  RFMIX,FEXTRAP,FSMTHB,FANGLE
+C
+C*********************************************************************************
+C*********************************************************************************
+C     WRITE OUT THE MIXING LENGTHS TO OLD_READIN.DAT
+C
+      DO NR = 1,NROWS
+          IF(ILOS.EQ.10)
+     &    WRITE(4,1700)  FRACPB,FRACPB,FRACPB,FRACPB,FRACPW,FRACPUP
+          IF(ILOS.GT.10)
+     &    WRITE(4,1700)  FRACPIN,FRACPLE,FRACPTE,FRACPDWN,FSTURB,
+     &    TURBVIS_DAMP
+      END DO 
+C
+C*********************************************************************************
+C*********************************************************************************
+C     OUTPUT THE MIXING LENGTHS TO NEW_READIN.DAT
+C
+      IF(ILOS.NE.0) THEN
+      WRITE(10,*) 'MIXING LENGTH LIMITS ON ALL BLADE ROWS'
+      DO NR = 1,NROWS
+          IF(ILOS.EQ.10)
+     &    WRITE(10,1700)  FRACPB,FRACPB,FRACPB,FRACPB,FRACPW,FRACPUP
+          IF(ILOS.GT.10)
+     &    WRITE(10,1700)  FRACPIN,FRACPLE,FRACPTE,FRACPDWN,FSTURB,
+     &    TURBVIS_DAMP
+      END DO 
+      END IF 
+C
+C*********************************************************************************
+C*********************************************************************************
+C     WRITE OUT FACMIXUP  AND NMIXUP OLD_READIN.DAT
+      WRITE(4,1711)  FACMIXUP , NMIXUP
+      WRITE(10,*)  ' FACTOR TO INCREASE THE TURBULENT VISCOSITY OVER THE
+     * FIRST NMIXUP STEPS '
+      WRITE(10,1711) FACMIXUP , NMIXUP
+C
+C*********************************************************************************
+C*********************************************************************************
+C      DATA FOR ANY SHROUDS
+      DO NSH = 1,NSHROUD
+      WRITE(10,*)   'INPUT SHROUD DATA HERE'
+      END DO 
+C
+C*********************************************************************************
+C*********************************************************************************
+C   WRITE OUT THE STAGE NUMBER FOR ALL ROWS TO OLD_READIN.DAT
+      WRITE(4,1712)  (NSTG(NR),NR=1,NROWS)
+C
+C*********************************************************************************
+C*********************************************************************************
+C     INPUT DATA FOR A THROUGHFLOW CALCULATION IF IM = 2.TO OLD_READIN.DAT .
+      IF(IM.EQ.2) THEN
+      WRITE(4,*) ' DATA FOR A THROUGHFLOW CALCULATION '
+      WRITE(4,*)   1.0,  0.1,   2
+      END IF
+C
+C*********************************************************************************
+C*********************************************************************************
+C     WRITE OUT THE BUFFER LAYER SCALING RANGE OLD_READIN.DAT
+      WRITE(4,1700)  7.5, 25.0
+C
+ 1700 FORMAT(8F10.6) 
+ 1701 FORMAT(8F10.1) 
+ 1702 FORMAT(F10.1,3F10.3,F10.1,2F10.3) 
+ 1703 FORMAT(8I10)
+ 1705 FORMAT(16I5)
+ 1704 FORMAT(F10.2,5F10.5) 
+ 1706 FORMAT(4F10.5,I5)
+ 1707 FORMAT(I10,F10.6)
+ 1708 FORMAT(3F10.6,I10)
+ 1709 FORMAT(5I10,F10.5)
+ 1711 FORMAT(F10.5,I5)
+ 1712 FORMAT(20I4)
+ 1713 FORMAT(I5,F10.6,I5)
+ 1714 FORMAT(3I5,2F10.5)
+ 1715 FORMAT(2F10.5,I5)
+ 1716 FORMAT(40I2) 
+ 1717 FORMAT(8F10.4)
+C
+C*****************************************************************************
+C******************************************************************************
+C******************************************************************************
+C   END OF MAIN PROGRAM
+C
+      WRITE(6,*)
+      WRITE(6,*)' DESIGN NOW COMPLETED'
+      WRITE(6,*)' FILES "stage_new.dat" and "stage_old.dat" written out'
+      WRITE(6,*)' FOR INPUT TO  MULTALL_OPEN '
+      WRITE(6,*)
+C
+      STOP 
+      END 
+C
+C******************************************************************************
+C******************************************************************************
+C******************************************************************************
+C******************************************************************************
+C
+C
+       SUBROUTINE INTP(N,XN,YN,X,Y) 
+C      THIS SUBROUTINE INTERPOLATES IN THE GIVEN TABLE OF YN AS A 
+C      FUNCTION OF XN TO FIND THE VALUE OF Y AT THE INPUT VALUE 
+C      OF X. 
+C 
+      DIMENSION XN(N),YN(N)
+      Y=0. 
+      L=1 
+      NM=N 
+      IF(N.LT.4) GO TO 8 
+      NM=4 
+    4 IF(X.LT.XN(L)) GO TO 5 
+      IF(L.EQ.N) GO TO 3 
+      L=L+1 
+      GO TO 4 
+    5 IF(L.GT.2) GO TO 6 
+      L=1 
+      GO TO 8 
+    6 IF(L.NE.N) GO TO 7 
+    3 L=N-3 
+      GO TO 8 
+    7 L=L-2 
+    8 DO 11 L1=1,NM 
+      CO=1 
+      DO 10 L2=1,NM 
+      IF(L1.EQ.L2) GO TO 9 
+      TEMP=(X-XN(L+L2-1))/(XN(L+L1-1)-XN(L+L2-1)) 
+      GO TO 10 
+    9 TEMP=1 
+   10 CO=CO*TEMP 
+   11 Y=Y+CO*YN(L+L1-1) 
+      RETURN 
+      END 
+ 
+C
+C
+C******************************************************************************
+C******************************************************************************
+C
+C
+       SUBROUTINE LININT(NPOINTS,X,Y,XARG,YANS)
+C
+C      THIS SUBROUTINE INTERPOLATES IN THE GIVEN TABLE OF YN AS A
+C      FUNCTION OF X TO FIND THE VALUE OF Y AT THE INPUT VALUE
+C      OF X = XARG.
+C
+C      THIS VERSION USES LINEAR INTERPOLATION TO AVOID ANY POSSIBLE
+C      PROBLEMS WITH OVERSHOOTS OR UNDERSHOOTS.
+C
+      DIMENSION X(NPOINTS),Y(NPOINTS)
+C
+      IF (X(1).GT.XARG) THEN
+      YANS = Y(1) + (XARG-X(1))*(Y(2)-Y(1))/(X(2)-X(1))
+      ELSE
+      N=2
+   10 CONTINUE
+      IF(X(N).GT.XARG) GO TO 20
+      N=N+1
+      IF(N.GT.NPOINTS) GO TO 30
+      GO TO 10
+   20 YANS = Y(N) + (XARG-X(N))*(Y(N-1)-Y(N))/(X(N-1)-X(N))
+      GO TO 40
+   30 YANS = Y(NPOINTS) + (XARG-X(NPOINTS))*(Y(NPOINTS)-Y(NPOINTS-1))/
+     & (X(NPOINTS)-X(NPOINTS-1))
+   40 CONTINUE
+C
+      ENDIF
+C
+      RETURN
+      END
+C
+C******************************************************************************
+C******************************************************************************
+C
+C
+      SUBROUTINE INSECT(NXPTS,NC,XCURVE,YCURVE,X0,Y0,ALPHA,XINT,YINT)
+c
+c      THIS SUBROUTINE FINDS THE INTERSECTION BETWEEN THE CURVE GIVEN BY
+C      XCURVE,YCURVE  and the line through X0,Y0 AT AN ANGLE Alpha to the X AXIS
+C
+      DIMENSION XCURVE(NXPTS),YCURVE(NXPTS)
+C      RADDEG = 180/3.14159
+C      AL = ALPHA*RADDEG
+C
+      NLE = NXPTS/3
+      NTE = NXPTS - NLE
+      XNORM = COS(ALPHA)
+      YNORM = SIN(ALPHA)
+C
+      DX = XCURVE(1) - X0
+      DY = YCURVE(1) - Y0
+      PERP1 = XNORM*DY  - YNORM*DX
+C
+      DX2   = XCURVE(NXPTS) - X0
+      DY2   = YCURVE(NXPTS) - Y0
+      PERPEND  = XNORM*DY2 - YNORM*DX2
+C
+      IF(NC.LT.NLE.AND.PERP1.LE.0.0) THEN
+C
+C          XINT = X0 + (YCURVE(NC)-Y0)*XNORM*YNORM
+C          YINT = Y0 + (YCURVE(NC)-Y0)*YNORM*YNORM
+C    FIND THE INTERSECTION OF THE EXTRAPOLATED CURVE AND THE LINE
+C
+	  DYDXS = (YCURVE(3) - YCURVE(1))/(XCURVE(3)-XCURVE(1))
+	  DYDXN = TAN(ALPHA)
+	  TOP = X0*DYDXN - XCURVE(1)*DYDXS + YCURVE(1) - Y0
+	  BOT = DYDXN - DYDXS
+	  XINT = TOP/BOT
+	  YINT = Y0 + (XINT-X0)*DYDXN
+	  GO TO 1000
+      ENDIF
+C
+      IF(NC.GT.NTE.AND.PERPEND.GE.0.0) THEN
+C
+C          XINT = X0 + (YCURVE(NC)-Y0)*XNORM*YNORM
+C          YINT = Y0 + (YCURVE(NC)-Y0)*YNORM*YNORM
+C    FIND THE INTERSECTION OF THE EXTRAPOLATED CURVE AND THE LINE
+	  DYDXS = (YCURVE(NXPTS-2) - YCURVE(NXPTS))
+     &           /(XCURVE(NXPTS-2) - XCURVE(NXPTS))
+	  DYDXN = TAN(ALPHA)
+	  TOP = X0*DYDXN - XCURVE(NXPTS)*DYDXS + YCURVE(NXPTS) - Y0
+	  BOT = DYDXN - DYDXS
+	  XINT = TOP/BOT
+	  YINT = Y0 + (XINT-X0)*DYDXN
+	  GO TO 1000
+      ENDIF
+C
+C      IF(PERP1.GT.0.0.AND.PERPEND.LT.0.0) THEN
+C
+      PERPP   = 0.0001
+      DO 100 N=1,NXPTS
+      DY  = YCURVE(N) - Y0
+      DX  = XCURVE(N) - X0
+      PERP = XNORM*DY - YNORM*DX
+      IF(PERP.LT.0.0.AND.PERPP.GT.0) THEN
+	  FAC  =  PERPP/(PERPP - PERP)
+       IF(N.GE.3.AND.N.LE.NXPTS-1) THEN
+	  DYDXL = (YCURVE(N+1) - YCURVE(N-1))/(XCURVE(N+1)-XCURVE(N-1))
+	  DYDXP = (YCURVE(N)   - YCURVE(N-2))/(XCURVE(N)-XCURVE(N-2))
+	  XDIF  = (XCURVE(N)   - XCURVE(N-1))
+	  DDY   = (DYDXL-DYDXP)/XDIF
+       ELSE
+	  DDY   = 0.0
+       ENDIF
+	  XINT =  XCURVE(N-1) + FAC*(XCURVE(N)-XCURVE(N-1))
+	  YINT =  YCURVE(N-1) + FAC*(YCURVE(N)-YCURVE(N-1))
+     &                        + 0.5*FAC*FAC*DDY*XDIF*XDIF
+	  GO TO 1000
+      ENDIF
+      PERPP = PERP
+  100 CONTINUE
+C
+C      ENDIF
+C
+ 1000 CONTINUE
+C
+      RETURN
+      END
+C
+C
+C
+C******************************************************************************
+C******************************************************************************
+C
+      SUBROUTINE FIND_DYDX(NPOINTS,XIN,YIN,DYDX)
+      DIMENSION  XIN(NPOINTS),YIN(NPOINTS),DYDX(NPOINTS)
+C
+      DO 100 N=2,NPOINTS-1
+      DXN = XIN(N+1)- XIN(N-1)
+      DYN = YIN(N+1) -YIN(N-1)
+      DYDX(N) = DYN/DXN
+  100 CONTINUE
+C
+      DYDX(1)       = (YIN(2)-YIN(1))/(XIN(2)-XIN(1))
+      DYDX(NPOINTS) = (YIN(NPOINTS)-YIN(NPOINTS-1))
+     &               /(XIN(NPOINTS)-XIN(NPOINTS-1))
+C
+      RETURN
+      END
+C
+C
+C******************************************************************************
+C******************************************************************************
+C
+C
+      SUBROUTINE SMOOTH(NPIN,NSMOOTH,SFAC,FRACX,VAR)
+C
+      DIMENSION AVG(500),FRACX(NPIN),VAR(NPIN),CURV(500)
+C
+      SFACM1  = 1-SFAC
+      DO 116 NSMTH =1,NSMOOTH
+C
+      DO 117 J=2,NPIN-1
+      DX1 = FRACX(J)-FRACX(J-1)
+      DX2 = FRACX(J+1)-FRACX(J)
+      FAC = (DX1/(DX1+DX2))
+      AVG(J)  = VAR(J-1)  + FAC*(VAR(J+1)-VAR(J-1))
+      CURV(J) = VAR(J) - AVG(J)
+  117 CONTINUE
+      CURV(1)    = CURV(2)
+      CURV(NPIN) = CURV(NPIN-1)
+
+      DO 118 J=2,NPIN-1
+      VSMTH   = AVG(J) + 0.5*(CURV(J+1)+CURV(J-1))
+  118 VAR(J)  = SFACM1*VAR(J) + SFAC*VSMTH
+C
+  116 CONTINUE
+C
+      RETURN
+      END
+
+

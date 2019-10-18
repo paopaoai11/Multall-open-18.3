@@ -1,0 +1,36 @@
+C                                       TURBO_TYP,"C" FOR A COMPRESSOR,"T" FOR A TURBINE
+MIX                                     FLO_TYP FOR  AXIAL OR MIXED FLOW MACHINE 
+     287.150       1.400                GAS PROPERTOES, RGAS, GAMMA 
+       1.000     300.000                POIN,  TOIN 
+    1                                   NUMBER OF STAGES IN THE MACHINE 
+M                                       CHOICE OF DESIGN POINT RADIUS, HUB, MID or TIP
+    3000.000                            ROTATION SPEED, RPM 
+      10.000                            MASS FLOW RATE, FLOWIN. 
+b                                       MIXTYP = INPUT TYPE FOR FLO_TYP = "MIX" .
+    1.0000                              FLOW COEFFICIENT AT THE FIRST ROTOR LEADING EDGE.
+     0.000    00.000                    STAGE INLET AND OUTLET ABSOLUTE FLOW ANGLES.
+    1.0000                              STAGE LOADING COEFFICIENT AT THE ROTOR LEADING EDGE.
+    8                                   NUMBER OF POINTS ON THE STREAM SURFACE
+C  NEXT THE AXIAL CCORDINATES OF THE STREAM SURFACE
+     0.10100     0.10200     0.10300     0.10400     0.10500     0.10600     0.10700     0.10800
+C NEXT THE RADIAL CCORDINATES OF THE STREAM SURFACE
+     0.20000     0.30000     0.40000     0.50000     0.60000     0.70000     0.80000     1.00000
+C   NEXT THE MERIDIONAL VELOCITY RATIOS.
+     1.00000     0.80000     0.70000     0.70000     0.70000     0.65000     0.60000     0.60000
+    2    4    5    7                    LEADING AND TRAILING EDGE POINT NUMBERS ON THE MEAN STREAM SURFACE.
+n                                       DO YOU WANT TO CHANGE THE STREAM SURFACE COORDINATES ?
+       0.900                            GUESS OF THE STAGE ISENTROPIC EFFICIENCY
+       5.000       5.000                ESTIMATE OF THE DEVIATION ANGLES
+       0.000       0.000                FIRST AND SECOND ROW INCIDENCE ANGLES
+   180.000   180.000                    QO ANGLES AT LE  AND TE OF ROW 1 
+   180.000   180.000                    QO ANGLES AT LE  AND TE OF ROW 2 
+n                                       DO YOU WANT TO CHANGE THE ANGLES FOR THIS STAGE,  ANSWER  "Y" or "N" 
+Y                                       IS OUTPUT REQUESTED FOR ALL BLADE ROWS ? 
+N            ROTOR No.   1, SET ANSTK="Y" TO USE THE SAME BLADE SECTIONS AS THE LAST STAGE
+       0.075       0.400                MAX THICKNESS AND ITS LOCATION FOR ROTOR   1 SECTION No.  1
+       0.075       0.400                MAX THICKNESS AND ITS LOCATION FOR ROTOR   1 SECTION No.  2
+       0.075       0.400                MAX THICKNESS AND ITS LOCATION FOR ROTOR   1 SECTION No.  3
+N            STATOR No.   1, SET ANSTK="Y" TO USE THE SAME BLADE SECTIONS AS THE LAST STAGE
+       0.050       0.500                MAX THICKNESS AND ITS LOCATION FOR STATOR  1 SECTION No.  1
+       0.050       0.500                MAX THICKNESS AND ITS LOCATION FOR STATOR  1 SECTION No.  2
+       0.050       0.500                MAX THICKNESS AND ITS LOCATION FOR STATOR  1 SECTION No.  3
